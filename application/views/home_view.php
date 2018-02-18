@@ -34,7 +34,7 @@
 						<!-- small box -->
 						<div class="small-box bg-green">
 							<div class="inner">
-								<h3>44</h3>
+								<h3><?php echo $qtdeAluno; ?></h3>
 								<p>Qtde Aluno</p>
 							</div>
 							<div class="icon">
@@ -48,7 +48,7 @@
 						<!-- small box -->
 						<div class="small-box bg-aqua">
 							<div class="inner">
-								<h3>44</h3>
+								<h3>0</h3>
 								<p>Qtde Matrícula</p>
 							</div>
 							<div class="icon">

@@ -11,7 +11,9 @@ class Home extends CI_Controller {
 		
 		if (is_logado())
 	    {
-	        $this->credencial = get_credencial();
+			$this->credencial = get_credencial();
+
+			$this->load->model('aluno/aluno_model');
 		}
     	else
     	{
@@ -21,7 +23,11 @@ class Home extends CI_Controller {
 	
 	public function index()
 	{
-		$this->load->view('home_view');
+		$arrAluno = $this->aluno_model->listarAluno(1);
+		$qtdeAluno = count($arrAluno);
+
+		$arrDados = array('qtdeAluno' => $qtdeAluno);
+		$this->load->view('home_view', $arrDados);
 	}
 }
 
