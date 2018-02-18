@@ -24,10 +24,10 @@
    			<!-- Content Header (Page header) -->
 			<section class="content-header">
 				<h1>
-					Aluno <small>Gerenciamento Aluno</small>
+					Usuário <small>Gerenciamento Usuário</small>
 				</h1>
 				<ol class="breadcrumb">
-					<li><a href="<?php echo base_url('aluno/gerenciar');?>"><i class="fa fa-user"></i> Aluno</a></li>
+					<li><a href="<?php echo base_url('usuario/gerenciar');?>"><i class="fa fa-users"></i> Usuário</a></li>
 				</ol>
 			</section>
 
@@ -36,50 +36,48 @@
 
                 <div class="box">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Lista de Alunos</h3>
+                        <h3 class="box-title">Lista de Usuários</h3>
 
                         <div class="pull-right box-tools">
-                            <a href='<?php echo base_url("aluno/incluir"); ?>' class='btn btn-success btn-sm'><i class="fa fa-plus"></i> Incluir </a>
+                            <a href='<?php echo base_url("usuario/incluir"); ?>' class='btn btn-success btn-sm'><i class="fa fa-plus"></i> Incluir </a>
                         </div>
 
                     </div>
                     
-
                     <!-- /.box-header -->
                     <div class="box-body">
-                        <table id="tbl-aluno" class="table table-bordered table-striped">
+
+                        <?php echo Notificacao::getNotificacao(); ?>  
+
+                        <table id="tbl-usuario" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
                                     <th>Nome</th>
                                     <th>Email</th>
-                                    <th>Cadastro</th>
+                                    <th>Perfil</th>
                                     <th>Status</th>
                                     <th>Ação</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php 
-                                    
-                                    // echo "<pre>";
-                                    // print_r ($arrAluno);
-                                    // echo "</pre>";
-
-                                    foreach($arrAluno as $aluno) 
+              
+                                    foreach($arrUsuario as $usuario) 
 									{
-                                        $pathVerAluno = base_url("aluno/ver/" .  urlencode(base64_encode($aluno['id_aluno']))); 
-                                        $pathEditarAluno = base_url("aluno/editar/" .  urlencode(base64_encode($aluno['id_aluno']))); 
+                                        $pathVerUsuario = base_url("usuario/ver/" .  urlencode(base64_encode($usuario['id_usuario']))); 
+                                        $pathEditarUsuario = base_url("usuario/editar/" .  urlencode(base64_encode($usuario['id_usuario']))); 
                                             
-                                        $dataMysql = strtotime($aluno['data_cadastro']); //usado para ordenacao correta no datatable
-                                        $status = $aluno['ativo'] ? 'Ativo' : 'Inativo';
+                                        $dataMysql = strtotime($usuario['data_cadastro']); //usado para ordenacao correta no datatable
+                                        $status = $usuario['ativo'] ? 'Ativo' : 'Inativo';
 
                                         echo "<tr>
-                                                <td>{$aluno['nome_aluno']}</td>
-                                                <td>{$aluno['email']}</td>
-                                                <td data-search='{$aluno['data_cadastro']}' data-order='{$dataMysql}'>{$aluno['data_cadastro_formatada']}</td>
+                                                <td>{$usuario['nome_usuario']}</td>
+                                                <td>{$usuario['email']}</td>
+                                                <td>{$usuario['perfis']}</td>
                                                 <td>{$status}</td>
                                                 <td>
-                                                    <a href='{$pathVerAluno}' class='btn btn-primary btn-xs'><i class='fa fa-search'></i> Ver</a>
-                                                    <a href='{$pathEditarAluno}' class='btn btn-info btn-xs'><i class='fa fa-pencil'></i> Editar</a>                             
+                                                    <a href='{$pathVerUsuario}' class='btn btn-primary btn-xs'><i class='fa fa-search'></i> Ver</a>
+                                                    <a href='{$pathEditarUsuario}' class='btn btn-info btn-xs'><i class='fa fa-pencil'></i> Editar</a>                             
                                                 </td>
                                             </tr>";   
                                     }
@@ -95,8 +93,8 @@
             </section>
 			<!-- /.content -->
 		</div>
-        <!-- /.content-wrapper -->
-                               
+		<!-- /.content-wrapper -->
+
     <?php getRodape(); ?>
 
     <!-- DataTables -->
@@ -105,7 +103,7 @@
 
     <script>
         $(function () {
-            $('#tbl-aluno').DataTable({
+            $('#tbl-usuario').DataTable({
                 language: {
                     url: '//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json'
                 }
