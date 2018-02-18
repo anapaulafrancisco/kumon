@@ -28,7 +28,8 @@ class Usuario_model extends CI_Model {
 										u.*,
 										GROUP_CONCAT(DISTINCT p.id_perfil SEPARATOR ',') AS perfis_ids,
 										GROUP_CONCAT(DISTINCT p.perfil SEPARATOR ', ') AS perfis,
-										DATE_FORMAT(u.data_cadastro,'%d/%m/%Y') AS data_cadastro_formatada													FROM 
+										DATE_FORMAT(u.data_cadastro,'%d/%m/%Y') AS data_cadastro_formatada													
+									FROM 
 										usuario u
 										JOIN usuario_perfil up ON (up.id_usuario = u.id_usuario)
 										JOIN perfil p ON (p.id_perfil = up.id_perfil)
@@ -37,7 +38,7 @@ class Usuario_model extends CI_Model {
 									 	u.id_usuario
 									ORDER BY
 									 	u.nome_usuario");	
-	
+
 		if (is_object($result) && $result->num_rows() > 0)
         {
             return $result->result_array();
@@ -89,4 +90,39 @@ class Usuario_model extends CI_Model {
 		$this->db->insert('usuario', $arrInfoUsuario);
 		return $this->db->insert_id();
 	}
+
+	//-----------------------------------------------------------
+	
+	/**
+	 * Funcao responsavel por buscar um usuario
+	 * 
+	 * @param int $idUsuario 
+	 * @return array
+	 */
+	public function buscarUsuario($idUsuario)
+	{	
+		$result = $this->db->query("SELECT
+										u.*,
+										GROUP_CONCAT(DISTINCT p.id_perfil SEPARATOR ',') AS perfis_ids,
+										GROUP_CONCAT(DISTINCT p.perfil SEPARATOR ', ') AS perfis,
+										DATE_FORMAT(u.data_cadastro,'%d/%m/%Y') AS data_cadastro_formatada													 
+									FROM	
+										usuario u
+										JOIN usuario_perfil up ON (up.id_usuario = u.id_usuario)
+										JOIN perfil p ON (p.id_perfil = up.id_perfil)
+									WHERE 
+										u.id_usuario = {$idUsuario}
+									GROUP BY
+									 	u.id_usuario");	
+
+		if (is_object($result) && $result->num_rows() > 0)
+        {
+            return $result->row_array();
+        }
+        else
+        {
+            return array();
+        }
+	}
+
 }

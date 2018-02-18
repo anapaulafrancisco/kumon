@@ -1,3 +1,4 @@
 *.DS_Store
 readme.rst
 contributing.md
+application/logs/*

@@ -104,6 +104,22 @@ class Usuario extends CI_Controller {
 		}
 	}
 
+	//-----------------------------------------------------------
+
+	/**
+	 * Funcao responsavel por exibir um usuario
+	 * 
+	 * @param type $idUsuario 
+	 */
+	public function ver($idUsuario)
+	{
+		$idUsuarioDescrip = base64_decode(urldecode($idUsuario));
+		$arrUsuario = $this->usuario_model->buscarUsuario($idUsuarioDescrip);
+
+		$arrDados = array('arrUsuario' => $arrUsuario);
+		$this->load->view('usuario/ver_usuario_view', $arrDados);
+	}
+
     //-----------------------------------------------------------
 	
 	/**
