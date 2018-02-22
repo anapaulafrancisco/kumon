@@ -125,4 +125,19 @@ class Usuario_model extends CI_Model {
         }
 	}
 
+	//-----------------------------------------------------------
+
+	/**
+	 * Funcao responsavel por editar um usuario
+	 * 
+	 * @param type $arrInfoUsuario 
+	 * @param type $idUsuarioDescrip 
+	 * @return type
+	 */
+	public function editarUsuario($arrInfoUsuario, $idUsuarioDescrip)
+	{
+		$this->db->where('id_usuario', $idUsuarioDescrip);
+		$this->db->update('usuario', $arrInfoUsuario);
+	}
+
 }

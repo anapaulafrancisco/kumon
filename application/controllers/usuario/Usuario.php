@@ -120,6 +120,102 @@ class Usuario extends CI_Controller {
 		$this->load->view('usuario/ver_usuario_view', $arrDados);
 	}
 
+	//-----------------------------------------------------------
+
+	/**
+	 * Funcao responsavel por chamar o formulario para editar o usuario
+	 * 
+	 * @param type $idUsuario 
+	 */
+	public function formEditarUsuario($idUsuario)
+	{
+		$arrPerfil = $this->usuario_model->listarPerfil(1);
+
+		$idUsuarioDescrip = base64_decode(urldecode($idUsuario));
+		$arrUsuario = $this->usuario_model->buscarUsuario($idUsuarioDescrip);
+
+		$arrDados = array('arrUsuario' => $arrUsuario, 'arrPerfil' => $arrPerfil);
+		
+		$this->load->view('usuario/edt_usuario_view', $arrDados);
+	}
+
+	//-----------------------------------------------------------
+
+	/**
+	 * Funcao responsavel por editar um usuario
+	 */
+	public function editarUsuario()
+	{	
+		if($this->input->post(NULL, TRUE))
+		{
+			$arrPost = $this->input->post();
+
+			$idUsuarioDescrip = base64_decode(urldecode($arrPost['hddIdUsuario']));
+
+			$this->form_validation->set_rules('txtNome', 'Nome', 'trim|required|min_length[2]');
+			$this->form_validation->set_rules('txtEmail', 'Email', 'trim|required|valid_email');
+			$this->form_validation->set_rules('txtUsuario', 'Usuário', 'trim|required');
+			$this->form_validation->set_rules('rdoPerfil', 'Perfil', 'required');
+		
+			if(!empty($arrPost['pwdSenha']))
+			{
+				$this->form_validation->set_rules('pwdSenha', 'Senha', 'trim|callback_verifica_senha');
+			}
+			
+			$this->form_validation->set_rules('chkPerfil[]', 'Perfil', 'required');
+			
+			$this->form_validation->set_error_delimiters("<p style='color: #E74C3C; font-weight: bold;'>", "</p>");
+
+			if ($this->form_validation->run() == FALSE)
+			{
+				$this->formEditarUsuario($arrPost['hddIdUsuario']);
+			}
+			else
+			{
+				$this->db->trans_begin();	
+
+				$arrInfoUsuario = array(
+					'nome_usuario' => mb_strtoupper(trim($arrPost['txtNome'])),
+					'email' => strtolower(trim($arrPost['txtEmail'])),
+					'usuario' => trim($arrPost['txtUsuario']),
+					'ativo' => $arrPost['rdoStatusUsuario'],
+					'data_alteracao' => date('Y-m-d H:i:s'),
+					'id_usuario_alteracao' => $this->credencial['id_usuario']
+				);
+
+				if(!empty($arrPost['pwdSenha']))
+				{
+					$arrInfoUsuario['senha'] = md5(trim(SALT_SENHA . $arrPost['pwdSenha']));
+				}
+
+				$this->usuario_model->editarUsuario($arrInfoUsuario, $idUsuarioDescrip);
+
+				//excluir todos os perfis para inserir novamente
+				$this->perfil_model->excluirPerfil($idUsuarioDescrip);
+
+				$arrInfoPerfil = array(
+					'id_usuario' => $idUsuarioDescrip,
+					'id_perfil' => $arrPost['rdoPerfil']
+				);
+
+				$this->perfil_model->incluirPerfil($arrInfoPerfil);
+	
+				if ($this->db->trans_status() === FALSE)
+				{
+					$this->db->trans_rollback();
+					Notificacao::setNotificacao('Erro ao editar usuário.', Notificacao::$NOTIFICACAO_ERRO);
+					redirect('usuario/gerenciar');
+				}
+				else
+				{
+				    $this->db->trans_commit();
+				    Notificacao::setNotificacao('Usuário editado com sucesso!', Notificacao::$NOTIFICACAO_SUCESSO);
+				    redirect('usuario/gerenciar');
+				}	
+			}
+		}
+	}
+
     //-----------------------------------------------------------
 	
 	/**
