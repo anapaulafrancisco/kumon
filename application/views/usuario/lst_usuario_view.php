@@ -5,7 +5,7 @@
 
     <!-- DataTables -->
     <link rel="stylesheet" href="<?php echo base_url('template_admin/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css'); ?>">
-
+    <link rel="stylesheet" href="<?php echo base_url('template_admin/bower_components/datatables.net-responsive-bs/css/responsive.bootstrap.min.css'); ?>">
 
 </head>
 
@@ -49,11 +49,12 @@
 
                         <?php echo Notificacao::getNotificacao(); ?>  
 
-                        <table id="tbl-usuario" class="table table-bordered table-striped">
+                        <table id="tbl-usuario" class="table table-bordered table-striped dt-responsive">
                             <thead>
                                 <tr>
                                     <th>Nome</th>
                                     <th>Email</th>
+                                    <th>Usuário</th>
                                     <th>Perfil</th>
                                     <th>Status</th>
                                     <th>Ação</th>
@@ -73,6 +74,7 @@
                                         echo "<tr>
                                                 <td>{$usuario['nome_usuario']}</td>
                                                 <td>{$usuario['email']}</td>
+                                                <td>{$usuario['usuario']}</td>
                                                 <td>{$usuario['perfis']}</td>
                                                 <td>{$status}</td>
                                                 <td>
@@ -100,6 +102,7 @@
     <!-- DataTables -->
     <script src="<?php echo base_url('template_admin/bower_components/datatables.net/js/jquery.dataTables.min.js'); ?>"></script>
     <script src="<?php echo base_url('template_admin/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js'); ?>"></script> 
+    <script src="<?php echo base_url('template_admin/bower_components/datatables.net-responsive/js/dataTables.responsive.min.js'); ?>"></script>
 
     <script>
         $(function () {

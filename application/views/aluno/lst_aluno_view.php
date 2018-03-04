@@ -5,7 +5,7 @@
 
     <!-- DataTables -->
     <link rel="stylesheet" href="<?php echo base_url('template_admin/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css'); ?>">
-
+    <link rel="stylesheet" href="<?php echo base_url('template_admin/bower_components/datatables.net-responsive-bs/css/responsive.bootstrap.min.css'); ?>">
 
 </head>
 
@@ -47,7 +47,7 @@
 
                     <!-- /.box-header -->
                     <div class="box-body">
-                        <table id="tbl-aluno" class="table table-bordered table-striped">
+                        <table id="tbl-aluno" class="table table-bordered table-striped dt-responsive">
                             <thead>
                                 <tr>
                                     <th>Nome</th>
@@ -102,7 +102,8 @@
     <!-- DataTables -->
     <script src="<?php echo base_url('template_admin/bower_components/datatables.net/js/jquery.dataTables.min.js'); ?>"></script>
     <script src="<?php echo base_url('template_admin/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js'); ?>"></script> 
-
+    <script src="<?php echo base_url('template_admin/bower_components/datatables.net-responsive/js/dataTables.responsive.min.js'); ?>"></script>
+    
     <script>
         $(function () {
             $('#tbl-aluno').DataTable({

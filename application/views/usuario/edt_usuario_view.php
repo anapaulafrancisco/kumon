@@ -80,6 +80,7 @@
 
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <input type="text" id="txtUsuario" name="txtUsuario" class="form-control <?php echo (form_error('txtUsuario') ? 'erro_formulario' : ''); ?>" value="<?php echo set_value('txtUsuario', $arrUsuario['usuario']); ?>" >
+                                            <input type="hidden" name="hddUsuario" value="<?php echo $arrUsuario['usuario']; ?>" >
                                             <?php echo form_error('txtUsuario'); ?>
                                         </div>
                                     </div>
@@ -99,7 +100,7 @@
 
                                     <?php if($arrUsuario['perfis_ids'] > 2) : ?>
                                         <div class='form-group'>
-                                            <label class='control-label col-md-3 col-sm-3 col-xs-12' for='first-name'>Perfil *</label>
+                                            <label class='control-label col-md-3 col-sm-3 col-xs-12' for='first-name'>Perfil </label>
                                             <div class='col-md-6 col-sm-6 col-xs-12'>
                                                 <?php  
                                                     foreach($arrPerfil as $perfil)
@@ -155,10 +156,11 @@
 
     <script>
         $(function() {
-            $.validator.addMethod("regx", function(value, regexpr) {          
-                return regexpr.test(value);
-            }, "Senha fora do padrão. Letras e números são obrigatórios teste.");
 
+            $('#txtUsuario').keyup(function(){
+                $(this).val($(this).val().toLowerCase());
+            });
+           
             //VALIDACAO FORMULARIO
             $('#frmEditarUsuario').validate({
                 rules: {
@@ -173,9 +175,6 @@
                     txtUsuario: {
                         required: true,
                         minlength: 3
-                    },
-                    rdoPerfil: { 
-                        required: true
                     }
                 },
                 messages: {
@@ -190,9 +189,6 @@
                     txtUsuario: {
                         required: "O campo Usuário é obrigatório",
                         minlength: "O campo Usuário deve conter no mínimo 3 caracteres."
-                    },
-                    rdoPerfil: {
-                        required: "O campo Perfil é obrigatório."
                     }
                 }
             });

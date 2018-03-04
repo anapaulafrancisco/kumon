@@ -1,6 +1,8 @@
 <?php
     getCabecalho(); 
     $arrCredencial = get_credencial();    
+
+    echo implode("/", array_reverse(explode("-", "2019-10-23")));
 ?>
 
     <style type="text/css">
@@ -75,7 +77,7 @@
                                         <label for="txtUsuario" class="control-label col-md-3 col-sm-3 col-xs-12">Usuário *</label>
 
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="text" id="txtUsuario" name="txtUsuario" class="form-control <?php echo (form_error('txtUsuario') ? 'erro_formulario' : ''); ?>" value="<?php echo set_value('txtUsuario'); ?>" >
+                                            <input type="text" id="txtUsuario" name="txtUsuario" class="form-control <?php echo (form_error('txtUsuario') ? 'erro_formulario' : ''); ?>" value="<?php echo set_value('txtUsuario'); ?>">
                                             <?php echo form_error('txtUsuario'); ?>
                                         </div>
                                     </div>
@@ -157,9 +159,14 @@
 
     <script>
         $(function() {
-            $.validator.addMethod("regx", function(value, regexpr) {          
+
+            $('#txtUsuario').keyup(function(){
+                $(this).val($(this).val().toLowerCase());
+            });
+
+            /* $.validator.addMethod("regx", function(value, regexpr) {          
                 return regexpr.test(value);
-            }, "Senha fora do padrão. Letras e números são obrigatórios teste.");
+            }, "Senha fora do padrão. Letras e números são obrigatórios teste."); */
 
             //VALIDACAO FORMULARIO
             $('#frmIncluirUsuario').validate({
@@ -178,8 +185,7 @@
                     },
                     pwdSenha: {
                         required: true,
-                        minlength: 5,
-                        regx: '/([a-z]{1,})|([0-9]{1,})/'
+                        minlength: 5
                     },
                     rdoPerfil: { 
                         required: true

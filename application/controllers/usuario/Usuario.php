@@ -55,7 +55,7 @@ class Usuario extends CI_Controller {
 
 			$this->form_validation->set_rules('txtNome', 'Nome', 'trim|required|min_length[2]');
 			$this->form_validation->set_rules('txtEmail', 'Email', 'trim|required|valid_email');
-			$this->form_validation->set_rules('txtUsuario', 'Usuário', 'trim|required|is_unique[usuario.usuario]');
+			$this->form_validation->set_rules('txtUsuario', 'Usuário', 'trim|required|alpha_numeric|is_unique[usuario.usuario]');
 			$this->form_validation->set_rules('pwdSenha', 'Senha', 'trim|required|callback_verifica_senha');
 			$this->form_validation->set_rules('rdoPerfil', 'Perfil', 'required');
 			
@@ -72,7 +72,7 @@ class Usuario extends CI_Controller {
 				$arrInfoUsuario = array(
 					'nome_usuario' => mb_strtoupper(trim($arrPost['txtNome'])),
 					'email' => strtolower(trim($arrPost['txtEmail'])),
-					'usuario' => trim($arrPost['txtUsuario']),
+					'usuario' => strtolower(trim($arrPost['txtUsuario'])),
 					'senha' => md5(trim(SALT_SENHA . $arrPost['pwdSenha'])),
 					'ativo' => $arrPost['rdoStatusUsuario'],
 					'data_cadastro' => date('Y-m-d H:i:s'),
@@ -154,15 +154,18 @@ class Usuario extends CI_Controller {
 
 			$this->form_validation->set_rules('txtNome', 'Nome', 'trim|required|min_length[2]');
 			$this->form_validation->set_rules('txtEmail', 'Email', 'trim|required|valid_email');
-			$this->form_validation->set_rules('txtUsuario', 'Usuário', 'trim|required');
+			$this->form_validation->set_rules('txtUsuario', 'Usuário', 'trim|required|alpha_numeric');
 			$this->form_validation->set_rules('rdoPerfil', 'Perfil', 'required');
 		
-			if(!empty($arrPost['pwdSenha']))
+			if($arrPost['hddUsuario'] != trim($arrPost['txtUsuario']))
+			{
+				$this->form_validation->set_rules('txtUsuario', 'Usuário', 'trim|required|alpha_numeric|is_unique[usuario.usuario]');
+			}
+			
+			if(!empty(trim($arrPost['pwdSenha'])))
 			{
 				$this->form_validation->set_rules('pwdSenha', 'Senha', 'trim|callback_verifica_senha');
 			}
-			
-			$this->form_validation->set_rules('chkPerfil[]', 'Perfil', 'required');
 			
 			$this->form_validation->set_error_delimiters("<p style='color: #E74C3C; font-weight: bold;'>", "</p>");
 
@@ -177,13 +180,13 @@ class Usuario extends CI_Controller {
 				$arrInfoUsuario = array(
 					'nome_usuario' => mb_strtoupper(trim($arrPost['txtNome'])),
 					'email' => strtolower(trim($arrPost['txtEmail'])),
-					'usuario' => trim($arrPost['txtUsuario']),
+					'usuario' => strtolower(trim($arrPost['txtUsuario'])),
 					'ativo' => $arrPost['rdoStatusUsuario'],
 					'data_alteracao' => date('Y-m-d H:i:s'),
 					'id_usuario_alteracao' => $this->credencial['id_usuario']
 				);
 
-				if(!empty($arrPost['pwdSenha']))
+				if(!empty(trim($arrPost['pwdSenha'])))
 				{
 					$arrInfoUsuario['senha'] = md5(trim(SALT_SENHA . $arrPost['pwdSenha']));
 				}
@@ -246,7 +249,7 @@ class Usuario extends CI_Controller {
 			$this->form_validation->set_message('verifica_senha', 'Senha fora do padrão. Letras e números são obrigatórios. Mínimo 5 caracteres.');
 			return FALSE;
 		}
-		else if(preg_match_all('/([a-z]{1,})|([0-9]{1,})/', $senha) < 2)
+		else if(preg_match_all('/([a-z]{1,})|([0-9]{1,})|[A-Z]/', $senha) < 2)
 		{
 		    $this->form_validation->set_message('verifica_senha', 'Senha fora do padrão. Letras e números são obrigatórios.');
 			return FALSE;
