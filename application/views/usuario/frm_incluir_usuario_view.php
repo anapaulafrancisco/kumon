@@ -1,8 +1,6 @@
 <?php
     getCabecalho(); 
-    $arrCredencial = get_credencial();    
-
-    echo implode("/", array_reverse(explode("-", "2019-10-23")));
+    $arrCredencial = get_credencial();
 ?>
 
     <style type="text/css">
