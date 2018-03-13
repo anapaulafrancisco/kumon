@@ -77,9 +77,7 @@ class Relatorio extends CI_Controller {
 		$idRelatorioDescrip = base64_decode(urldecode($idRelatorio));
 		$arrRelatorio = $this->relatorio_model->buscarRelatorio($idRelatorioDescrip);
 
-		$infoMesGrafico = array('FEV', 'MAR', 'ABR', 'MAI', 'JUN','JUL', 'AGO', 'SET', 'OUT', 'NOV', 'DEZ', 'JAN');
-
-		$arrDados = array('arrRelatorio' => $arrRelatorio, 'arrMeses' => json_encode($infoMesGrafico));
+		$arrDados = array('arrRelatorio' => $arrRelatorio);
 
 		$this->load->view('relatorio/ver_relatorio_view', $arrDados);
 	}
