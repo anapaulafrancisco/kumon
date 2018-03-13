@@ -69,8 +69,19 @@
             <li <?php echo $this->uri->segment(1) == 'home' ? "class='active'" : "" ?>><a href="<?php echo base_url('home'); ?>"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
             <li <?php echo $this->uri->segment(1) == 'aluno' ? "class='active'" : "" ?>><a href="<?php echo base_url('aluno/gerenciar');?>"><i class="fa fa-user"></i> <span>Aluno</span></a></li>
             <li><a href="#"><i class="fa fa-book"></i> <span>Matricula</span></a></li>
+            <li><a href="#"><i class="fa fa-edit"></i> <span>Lançar estágio</span></a></li>
+            <li class="treeview">
+                <a>
+                    <i class="fa fa-pie-chart"></i> <span>Relatórios</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="<?php echo base_url('relatorio/gerenciar');?>"><i class="fa fa-circle-o"></i> Histórico estudo</a></li>
+                </ul>
+            </li>
             <li <?php echo $this->uri->segment(1) == 'usuario' ? "class='active'" : "" ?>><a href="<?php echo base_url('usuario/gerenciar');?>"><i class="fa fa-users"></i> <span>Usuário Sistema</span></a></li>
-            <li><a href="#"><i class="fa fa-pie-chart"></i> <span>Relatórios</span></a></li>
         </ul>
         <!-- sidebar menu: : style can be found in sidebar.less -->
     </section>
