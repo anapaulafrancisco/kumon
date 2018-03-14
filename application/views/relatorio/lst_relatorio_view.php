@@ -184,8 +184,9 @@
                         <?php 
                             foreach ($arrInfoRelFolhaMes['info'] as $info) 
                             {
+                                $mesCompleto = ucfirst($info['mes_completo']);
                                 echo "<tr>
-                                        <td>{$info['mes']}</td>
+                                        <td>{$mesCompleto}</td>
                                         <td>{$info['ano']}</td>
                                         <td>{$info['info_estagio']}</td>
                                     </tr>";
@@ -255,9 +256,6 @@
 
         Highcharts.setOptions({
             lang: {
-                months: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
-                shortMonths: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
-                weekdays: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
                 loading: ['Atualizando o gráfico...aguarde'],
                 contextButtonTitle: 'Exportar gráfico',
                 decimalPoint: ',',

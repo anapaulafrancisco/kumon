@@ -18,7 +18,9 @@ class Relatorio_model extends CI_Model {
      */
     public function relFolhaMes($cursoID, $alunoID, $periodo)
     {
+        $this->db->query("SET lc_time_names = 'pt_BR'");
         $result = $this->db->query("SELECT
+                                        DATE_FORMAT(p.data_cadastro, '%M') AS mes_completo,
                                         DATE_FORMAT(p.data_cadastro, '%b') AS mes,
                                         p.qtde_folhas,
                                         CONCAT(e.nome_estagio, ' - ', p.qtde_folhas) AS info_estagio,

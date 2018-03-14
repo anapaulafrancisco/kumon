@@ -75,10 +75,3 @@ $route['aluno/editar/(:any)/salvar'] = 'aluno/aluno/editarAluno';
 //RELATORIO
 $route['relatorio/gerenciar'] = 'relatorio/relatorio/index';
 $route['relatorio/ver/(:any)'] = 'relatorio/relatorio/ver/$1';
-// $route['relatorio/incluir'] = 'relatorio/relatorio/formIncluirRelatorio';
-// $route['relatorio/editar/(:any)'] = 'relatorio/relatorio/formEditarRelatorio/$1';
-// $route['relatorio/incluir/salvar'] = 'relatorio/relatorio/incluirRelatorio';
-// $route['relatorio/editar/(:any)/salvar'] = 'relatorio/relatorio/editarRelatorio';
-// $route['relatorio/compartilhar/(:any)'] = 'relatorio/relatorio/formCompartilharRelatorio/$1';
-// $route['relatorio/compartilhar/(:any)/salvar'] = 'relatorio/relatorio/compartilharRelatorio';
-// $route['relatorio/exibir/(:any)'] = 'relatorio/relatorio/exibirRelatorio/$1';

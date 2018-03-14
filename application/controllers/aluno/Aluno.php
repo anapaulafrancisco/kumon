@@ -34,6 +34,16 @@ class Aluno extends CI_Controller {
 		$arrDados = array('arrAluno' => $arrAluno);
 
 		$this->load->view('aluno/lst_aluno_view', $arrDados);
-    }
+	}
+	
+	//-----------------------------------------------------------
+
+	/**
+	 * Funcao responsavel por chamar o formulario para inserir o aluno
+	 */
+	public function formIncluirAluno()
+	{
+		$this->load->view('aluno/frm_incluir_aluno_view');
+	}
     
 }   
