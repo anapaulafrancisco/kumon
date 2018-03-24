@@ -43,10 +43,12 @@
                         </div>
 
                     </div>
-                    
 
                     <!-- /.box-header -->
                     <div class="box-body">
+
+                        <?php echo Notificacao::getNotificacao(); ?>
+                        
                         <table id="tbl-aluno" class="table table-bordered table-striped dt-responsive">
                             <thead>
                                 <tr>
@@ -59,11 +61,7 @@
                             </thead>
                             <tbody>
                                 <?php 
-                                    
-                                    // echo "<pre>";
-                                    // print_r ($arrAluno);
-                                    // echo "</pre>";
-
+                                
                                     foreach($arrAluno as $aluno) 
 									{
                                         $pathVerAluno = base_url("aluno/ver/" .  urlencode(base64_encode($aluno['id_aluno']))); 

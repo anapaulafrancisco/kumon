@@ -40,7 +40,7 @@
 							<div class="icon">
 								<i class="fa fa-user-plus"></i>
 							</div>
-							<a href="#" class="small-box-footer">Cadastrar <i class="fa fa-arrow-circle-right"></i></a>
+							<a href="<?php echo base_url('aluno/incluir');?>" class="small-box-footer">Cadastrar <i class="fa fa-arrow-circle-right"></i></a>
 						</div>
 					</div>
 					<!-- ./col -->

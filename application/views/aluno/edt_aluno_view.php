@@ -51,17 +51,21 @@
                         <div class="box box-primary">
                             <!-- left column -->
                             <div class="box-header with-border">
-                                <h3 class="box-title">Incluir Aluno</h3>
+                                <h3 class="box-title">Editar Aluno</h3>
                             </div>
 
                             <?php echo Notificacao::getNotificacao(); ?>  
 
-                            <form name="frmAluno" id="frmAluno" action="<?php echo base_url('aluno/incluir/salvar'); ?>" method='post' class="form-horizontal">
+                            <form name="frmAluno" id="frmAluno" action="<?php echo base_url('aluno/editar/id/salvar'); ?>" method='post' class="form-horizontal">
+                                <?php 
+                                    $idAluno = urlencode(base64_encode($arrAluno['id_aluno']));
+                                ?>
+                                <input type="hidden" name="hddIdAluno" value="<?php echo $idAluno; ?>">
                                 <div class="box-body">
                                     <div class="form-group">
                                         <label for="txtNome" class="control-label col-md-3 col-sm-3 col-xs-12">Nome *</label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="text" id="txtNome" name="txtNome" class="form-control <?php echo (form_error('txtNome') ? 'erro_formulario' : ''); ?>" value="<?php echo set_value('txtNome'); ?>" >
+                                            <input type="text" name="txtNome" id="txtNome" class="form-control <?php echo (form_error('txtNome') ? 'erro_formulario' : ''); ?>" value="<?php echo set_value('txtNome', $arrAluno['nome_aluno']); ?>">
                                             <?php echo form_error('txtNome'); ?>
                                         </div>
                                     </div>
@@ -70,7 +74,7 @@
                                         <label for="txtEmail" class="control-label col-md-3 col-sm-3 col-xs-12">Email *</label>
 
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="email" id="txtEmail" name="txtEmail" class="form-control <?php echo (form_error('txtEmail') ? 'erro_formulario' : ''); ?>" value="<?php echo set_value('txtEmail'); ?>" >
+                                            <input type="email" id="txtEmail" name="txtEmail" class="form-control <?php echo (form_error('txtEmail') ? 'erro_formulario' : ''); ?>" value="<?php echo set_value('txtEmail', $arrAluno['email']); ?>" >
                                             <?php echo form_error('txtEmail'); ?>
                                         </div>
                                     </div>
@@ -78,7 +82,7 @@
                                     <div class='form-group'>
                                         <label for="txtCPF"  class='control-label col-md-3 col-sm-3 col-xs-12'>CPF *</label>
                                         <div class='col-md-6 col-sm-6 col-xs-12'>
-                                            <input type="text" name="txtCPF" id="txtCPF" class="form-control <?php echo (form_error('txtCPF') ? 'erro_formulario' : ''); ?>" value="<?php echo set_value('txtCPF'); ?>">
+                                            <input type="text" name="txtCPF" id="txtCPF" class="form-control <?php echo (form_error('txtCPF') ? 'erro_formulario' : ''); ?>" value="<?php echo set_value('txtCPF', $arrAluno['cpf']); ?>">
                                             <?php echo form_error('txtCPF'); ?>
                                         </div>
                                     </div>
@@ -86,7 +90,7 @@
                                     <div class='form-group'>
                                         <label for="txtDtNasc" class='control-label col-md-3 col-sm-3 col-xs-12'>Data Nascimento *</label>
                                         <div class='col-md-6 col-sm-6 col-xs-12'>
-                                                <input type="text" name="txtDtNasc" id="txtDtNasc" class="form-control <?php echo (form_error('txtDtNasc') ? 'erro_formulario' : ''); ?>" value="<?php echo set_value('txtDtNasc'); ?>" >
+                                                <input type="text" name="txtDtNasc" id="txtDtNasc" class="form-control <?php echo (form_error('txtDtNasc') ? 'erro_formulario' : ''); ?>" value="<?php echo set_value('txtDtNasc', $arrAluno['data_nascimento_formatada']); ?>" >
                                                 <?php echo form_error('txtDtNasc'); ?>
                                         </div>
                                     </div>
@@ -94,15 +98,17 @@
                                     <div class='form-group'>
                                         <label for="txtIdade" class='control-label col-md-3 col-sm-3 col-xs-12'>Idade</label>
                                         <div class='col-md-6 col-sm-6 col-xs-12'>
-                                            <input type="text" name="txtIdade" id="txtIdade" class="form-control" disabled>
+                                            <input type="text" name="txtIdade" id="txtIdade" class="form-control" value="<?php echo $arrAluno['idade']; ?>" disabled>
                                         </div>
                                     </div>
 
-                                    <div id="div-responsavel" style="display: none;">
+                                    <?php $blocoResponsavel = $arrAluno['idade'] < 18 ? "style='display: block;'" : "style='display: none;'"; ?>
+
+                                    <div id="div-responsavel" <?php echo $blocoResponsavel; ?>>
                                         <div class='form-group'>
                                             <label for="txtCPF"  class='control-label col-md-3 col-sm-3 col-xs-12'>Nome responsável *</label>
                                             <div class='col-md-6 col-sm-6 col-xs-12'>
-                                                <input type="text" name="txtNomeResponsavel" id="txtNomeResponsavel" class="form-control <?php echo (form_error('txtNomeResponsavel') ? 'erro_formulario' : ''); ?>" value="<?php echo set_value('txtNomeResponsavel'); ?>">
+                                                <input type="text" name="txtNomeResponsavel" id="txtNomeResponsavel" class="form-control <?php echo (form_error('txtNomeResponsavel') ? 'erro_formulario' : ''); ?>" value="<?php echo set_value('txtNomeResponsavel', $arrAluno['nome_responsavel']); ?>">
                                                 <?php echo form_error('txtNomeResponsavel'); ?>
                                             </div>
                                         </div>
@@ -110,7 +116,7 @@
                                         <div class='form-group'>
                                             <label for="txtCPF"  class='control-label col-md-3 col-sm-3 col-xs-12'>CPF responsável *</label>
                                             <div class='col-md-6 col-sm-6 col-xs-12'>
-                                                <input type="text" name="txtCPFResponsavel" id="txtCPFResponsavel" class="form-control <?php echo (form_error('txtCPFResponsavel') ? 'erro_formulario' : ''); ?>" value="<?php echo set_value('txtCPFResponsavel'); ?>">
+                                                <input type="text" name="txtCPFResponsavel" id="txtCPFResponsavel" class="form-control <?php echo (form_error('txtCPFResponsavel') ? 'erro_formulario' : ''); ?>" value="<?php echo set_value('txtCPFResponsavel', $arrAluno['cpf_responsavel']); ?>">
                                                 <?php echo form_error('txtCPFResponsavel'); ?>
                                             </div>
                                         </div>
@@ -119,15 +125,19 @@
                                     <div class='form-group'>
                                         <label class='control-label col-md-3 col-sm-3 col-xs-12'>Sexo </label>
                                         <div class='col-md-6 col-sm-6 col-xs-12'>
-                                            <label><input type="radio" class="flat" name="rdoSexo" value="M" checked="checked" /> Masculino </label>
-                                            <label><input type="radio" class="flat" name="rdoSexo" value="F" /> Feminino </label>
+                                            <?php 
+                                                $sexoFeminino = $arrAluno['sexo'] == 'F' ? "checked='checked'" : '';
+                                                $sexoMasculino = $arrAluno['sexo'] == 'M' ? "checked='checked'" : '';
+                                            ?>
+                                            <label><input type="radio" class="flat" name="rdoSexo" value="M" <?php echo $sexoMasculino; ?> /> Masculino </label>
+                                            <label><input type="radio" class="flat" name="rdoSexo" value="F" <?php echo $sexoFeminino; ?> /> Feminino </label>
                                         </div>
                                     </div>
                                     
                                     <div class='form-group'>
                                         <label for="txtCelular" class='control-label col-md-3 col-sm-3 col-xs-12'>Celular</label>
                                         <div class='col-md-6 col-sm-6 col-xs-12'>
-                                            <input type="text" name="txtCelular" id="txtCelular" class="form-control <?php echo (form_error('txtCelular') ? 'erro_formulario' : ''); ?>" value="<?php echo set_value('txtCelular'); ?>">
+                                            <input type="text" name="txtCelular" id="txtCelular" class="form-control <?php echo (form_error('txtCelular') ? 'erro_formulario' : ''); ?>" value="<?php echo set_value('txtCelular', $arrAluno['celular']); ?>">
                                             <?php echo form_error('txtCelular'); ?>
                                         </div>
                                     </div>
@@ -135,14 +145,14 @@
                                     <div class='form-group'>
                                         <label for="txtTelResidencial" class='control-label col-md-3 col-sm-3 col-xs-12'>Telefone Residencial *</label>
                                         <div class='col-md-6 col-sm-6 col-xs-12'>
-                                            <input type="text" name="txtTelResidencial" id="txtTelResidencial" class="form-control" value="<?php echo set_value('txtTelResidencial'); ?>" >
+                                            <input type="text" name="txtTelResidencial" id="txtTelResidencial" class="form-control" value="<?php echo set_value('txtTelResidencial', $arrAluno['telefone']); ?>" >
                                         </div>
                                     </div>
 
                                     <div class='form-group'>
                                         <label for="txtCEP" class='control-label col-md-3 col-sm-3 col-xs-12'>CEP *</label>
                                         <div class='col-md-6 col-sm-6 col-xs-12'>
-                                            <input type="text" name="txtCEP" id="txtCEP" class="form-control <?php echo (form_error('txtCEP') ? 'erro_formulario' : ''); ?>" value="<?php echo set_value('txtCEP'); ?>" >
+                                            <input type="text" name="txtCEP" id="txtCEP" class="form-control <?php echo (form_error('txtCEP') ? 'erro_formulario' : ''); ?>" value="<?php echo set_value('txtCEP', $arrAluno['cep']); ?>" >
                                             <?php echo form_error('txtCEP'); ?>
                                         </div>
                                     </div>
@@ -150,7 +160,7 @@
                                     <div class='form-group'>
                                         <label for="txtEndereco" class='control-label col-md-3 col-sm-3 col-xs-12'>Endereço *</label>
                                         <div class='col-md-6 col-sm-6 col-xs-12'>
-                                            <input type="text" name="txtEndereco" id="txtEndereco" class="form-control <?php echo (form_error('txtEndereco') ? 'erro_formulario' : ''); ?>" value="<?php echo set_value('txtEndereco'); ?>" >
+                                            <input type="text" name="txtEndereco" id="txtEndereco" class="form-control <?php echo (form_error('txtEndereco') ? 'erro_formulario' : ''); ?>" value="<?php echo set_value('txtEndereco', $arrAluno['endereco']); ?>" >
                                             <?php echo form_error('txtEndereco'); ?>
                                         </div>
                                     </div>
@@ -158,7 +168,7 @@
                                     <div class='form-group'>
                                         <label for="txtBairro" class='control-label col-md-3 col-sm-3 col-xs-12'>Bairro *</label>
                                         <div class='col-md-6 col-sm-6 col-xs-12'>
-                                            <input type="text" name="txtBairro" id="txtBairro" class="form-control <?php echo (form_error('txtBairro') ? 'erro_formulario' : ''); ?>" value="<?php echo set_value('txtBairro'); ?>" >
+                                            <input type="text" name="txtBairro" id="txtBairro" class="form-control <?php echo (form_error('txtBairro') ? 'erro_formulario' : ''); ?>" value="<?php echo set_value('txtBairro', $arrAluno['bairro']); ?>" >
                                             <?php echo form_error('txtBairro'); ?>
                                         </div>
                                     </div>
@@ -166,7 +176,7 @@
                                     <div class='form-group'>
                                         <label for="txtCidade" class='control-label col-md-3 col-sm-3 col-xs-12'>Cidade *</label>
                                         <div class='col-md-6 col-sm-6 col-xs-12'>
-                                            <input type="text" name="txtCidade" id="txtCidade" class="form-control <?php echo (form_error('txtCidade') ? 'erro_formulario' : ''); ?>" value="<?php echo set_value('txtCidade'); ?>" >
+                                            <input type="text" name="txtCidade" id="txtCidade" class="form-control <?php echo (form_error('txtCidade') ? 'erro_formulario' : ''); ?>" value="<?php echo set_value('txtCidade', $arrAluno['cidade']); ?>" >
                                             <?php echo form_error('txtCidade'); ?>
                                         </div>
                                     </div>
@@ -178,8 +188,8 @@
                                                 <?php 
                                                     foreach ($arrEstado as $estado) 
                                                     {
-                                                        $repopular = set_select('sltEstado', $estado);
-                                                        echo "<option value='{$estado}' {$repopular} >{$estado}</option>";
+                                                        $estadoSelecionado = $arrAluno['estado'] == $estado ? "selected='selected'" : ''; 
+                                                        echo "<option value='{$estado}' {$estadoSelecionado} >{$estado}</option>";
                                                     } 
                                                 ?>
                                             </select>
@@ -189,8 +199,12 @@
                                     <div class='form-group'>
                                         <label class='control-label col-md-3 col-sm-3 col-xs-12' for='first-name'>Status</label>
                                         <div class='col-md-6 col-sm-6 col-xs-12'>
-                                            <label><input type='radio' class='flat' name='rdoStatusAluno' value='1' <?php echo set_radio('rdoStatusAluno', '1', TRUE); ?>> Ativo</label><br />
-                                            <label><input type='radio' class='flat' name='rdoStatusAluno' value='0' <?php echo set_radio('rdoStatusAluno', '0'); ?>> Inativo</label>
+                                            <?php 
+                                                $statusAtivo = (int)$arrAluno['ativo'] == 1 ? "checked='checked'" : '';
+                                                $statusInativo = (int)$arrAluno['ativo'] == 0 ? "checked='checked'" : '';
+                                            ?>
+                                            <label><input type='radio' class='flat' name='rdoStatusAluno' value='1' <?php echo $statusAtivo; ?> <?php echo set_radio('rdoStatusAluno', '1'); ?>> Ativo</label><br />
+                                            <label><input type='radio' class='flat' name='rdoStatusAluno' value='0' <?php echo $statusInativo; ?> <?php echo set_radio('rdoStatusAluno', '0'); ?>> Inativo</label>
                                         </div>	
                                     </div>
                                                     

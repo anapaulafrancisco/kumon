@@ -66,4 +66,55 @@ class Aluno_model extends CI_Model {
             return array();
         }
 	}
+
+	//-----------------------------------------------------------
+
+	/**
+	 * Funcao responsavel por incluir um aluno
+	 * 
+	 * @param int $arrInfoAluno
+	 */
+	public function incluirAluno($arrInfoAluno)
+	{
+		$this->db->insert('aluno', $arrInfoAluno);
+	}
+
+	//-----------------------------------------------------------
+
+	/**
+	 * Funcao responsavel por buscar um aluno
+	 * 
+	 * @param type|int $ativo 
+	 * @return array
+	 */
+	public function buscarAluno($idAluno)
+	{
+		$this->db->where('id_aluno', $idAluno); 
+		$this->db->select("aluno.*, DATE_FORMAT(aluno.data_nascimento,'%d/%m/%Y') AS data_nascimento_formatada, TIMESTAMPDIFF(YEAR, aluno.data_nascimento, CURDATE()) AS idade");
+		$result = $this->db->get('aluno');
+
+		if (is_object($result) && $result->num_rows() > 0)
+        {
+            return $result->row_array();
+        }
+        else
+        {
+            return array();
+        }
+	}
+
+	//-----------------------------------------------------------
+
+	/**
+	 * Funcao responsavel por editar um aluno
+	 * 
+	 * @param type $arrInfoAluno 
+	 * @param type $idAlunoDescrip 
+	 * @return type
+	 */
+	public function editarAluno($arrInfoAluno, $idAlunoDescrip)
+	{
+		$this->db->where('id_aluno', $idAlunoDescrip);
+		$this->db->update('aluno', $arrInfoAluno);
+	}
 }
