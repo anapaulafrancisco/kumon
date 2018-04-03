@@ -180,6 +180,7 @@
                             <th>Mês</th>
                             <th>Ano</th>
                             <th>Estágio - folhas</th>
+                            <th>Premiação</th>
                         </tr>
                         <?php 
                             foreach ($arrInfoRelFolhaMes['info'] as $info) 
@@ -189,6 +190,7 @@
                                         <td>{$mesCompleto}</td>
                                         <td>{$info['ano']}</td>
                                         <td>{$info['info_estagio']}</td>
+                                        <td>Bronze</td>
                                     </tr>";
                             }
                         ?>

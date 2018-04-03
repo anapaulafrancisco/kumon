@@ -72,6 +72,14 @@ $route['aluno/editar/(:any)'] = 'aluno/aluno/formEditarAluno/$1';
 $route['aluno/incluir/salvar'] = 'aluno/aluno/incluirAluno';
 $route['aluno/editar/(:any)/salvar'] = 'aluno/aluno/editarAluno';
 
+//PESSOA
+$route['pessoa/gerenciar'] = 'pessoa/pessoa/index';
+$route['pessoa/ver/(:any)'] = 'pessoa/pessoa/ver/$1';
+$route['pessoa/incluir'] = 'pessoa/pessoa/formIncluirPessoa';
+$route['pessoa/editar/(:any)'] = 'pessoa/pessoa/formEditarPessoa/$1';
+$route['pessoa/incluir/salvar'] = 'pessoa/pessoa/incluirPessoa';
+$route['pessoa/editar/(:any)/salvar'] = 'pessoa/pessoa/editarPessoa';
+
 //RELATORIO
 $route['relatorio/gerenciar'] = 'relatorio/relatorio/index';
 $route['relatorio/ver/(:any)'] = 'relatorio/relatorio/ver/$1';
