@@ -83,3 +83,7 @@ $route['pessoa/editar/(:any)/salvar'] = 'pessoa/pessoa/editarPessoa';
 //RELATORIO
 $route['relatorio/gerenciar'] = 'relatorio/relatorio/index';
 $route['relatorio/ver/(:any)'] = 'relatorio/relatorio/ver/$1';
+
+//UNIDADE
+$route['unidade/editar'] = 'unidade/unidade/formEditarUnidade';
+$route['unidade/editar/(:any)/salvar'] = 'unidade/unidade/editarUnidade';

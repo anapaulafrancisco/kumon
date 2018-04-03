@@ -145,7 +145,8 @@
                                     <div class='form-group'>
                                         <label for="txtTelResidencial" class='control-label col-md-3 col-sm-3 col-xs-12'>Telefone Residencial *</label>
                                         <div class='col-md-6 col-sm-6 col-xs-12'>
-                                            <input type="text" name="txtTelResidencial" id="txtTelResidencial" class="form-control" value="<?php echo set_value('txtTelResidencial', $arrAluno['telefone']); ?>" >
+                                            <input type="text" name="txtTelResidencial" id="txtTelResidencial" class="form-control <?php echo (form_error('txtTelResidencial') ? 'erro_formulario' : ''); ?>" value="<?php echo set_value('txtTelResidencial', $arrAluno['telefone']); ?>">
+                                            <?php echo form_error('txtTelResidencial'); ?>
                                         </div>
                                     </div>
 

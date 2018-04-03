@@ -67,6 +67,7 @@
         <ul class="sidebar-menu" data-widget="tree">
             <li class="header">Menu</li>
             <li <?php echo $this->uri->segment(1) == 'home' ? "class='active'" : "" ?>><a href="<?php echo base_url('home'); ?>"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
+            <li <?php echo $this->uri->segment(1) == 'unidade' ? "class='active'" : "" ?>><a href="<?php echo base_url('unidade/editar'); ?>"><i class="fa fa-home"></i> <span>Unidade</span></a></li>
             <li <?php echo $this->uri->segment(1) == 'pessoa' ? "class='active'" : "" ?>><a href="<?php echo base_url('pessoa/gerenciar'); ?>"><i class="fa fa-graduation-cap"></i> <span>Pessoa</span></a></li>
             <li <?php echo $this->uri->segment(1) == 'aluno' ? "class='active'" : "" ?>><a href="<?php echo base_url('aluno/gerenciar');?>"><i class="fa fa-user"></i> <span>Aluno</span></a></li>
             <li><a href="#"><i class="fa fa-book"></i> <span>Matricula</span></a></li>
