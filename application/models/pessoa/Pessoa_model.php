@@ -86,12 +86,12 @@ class Pessoa_model extends CI_Model {
 	 * Funcao responsavel por editar uma pessoa
 	 * 
 	 * @param type $arrInfoPessoa 
-	 * @param type $idPessoaDescrip 
+	 * @param type $idPessoa 
 	 * @return type
 	 */
-	public function editarPessoa($arrInfoPessoa, $idPessoaDescrip)
+	public function editarPessoa($arrInfoPessoa, $idPessoa)
 	{
-		$this->db->where('id_pessoa', $idPessoaDescrip);
+		$this->db->where('id_pessoa', $idPessoa);
 		$this->db->update('pessoa', $arrInfoPessoa);
 	}
 }

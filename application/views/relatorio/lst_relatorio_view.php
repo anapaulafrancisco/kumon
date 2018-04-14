@@ -168,10 +168,18 @@
                 <!-- div de exibicao do grafico -->  
                 <?php if(isset($arrInfoRelFolhaMes) && in_array('ok',$arrInfoRelFolhaMes)) : ?>                              
                 <div class="box box-primary"><div id="graficoFolhaMes" style="min-width: 400px; height: 400px; margin: 0 auto"></div></div>
-                
+
                 <div class="box box-primary">
                     <div class="box-header with-border">
-                    <h3 class="box-title"><?php echo $arrInfoRelFolhaMes['info'][0]['nome_aluno'] . ' - ' . $arrInfoRelFolhaMes['info'][0]['serie'] . ' - ' . $arrInfoRelFolhaMes['info'][0]['periodo']; ?></h3>
+                     <!-- ' - ' . $arrInfoRelFolhaMes['info'][0]['periodo']; -->
+                    <h3 class="box-title"><?php echo 'Série: ' . $arrInfoRelFolhaMes['info'][0]['nivel'] . ' (' . $arrInfoRelFolhaMes['info'][0]['nome_serie'] . ')'; ?></h3>
+                    <h3 class="box-title"> - Dia/Hora Aula - </h3>
+                    <?php 
+                        foreach($arrMatriculaTurma as $turma)
+                        {
+                            echo "<h3 class='box-title'>({$turma['dia_aula']} - {$turma['horario_aula_formatado']})  </h3>";
+                        }
+                    ?>
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
@@ -181,16 +189,19 @@
                             <th>Ano</th>
                             <th>Estágio - folhas</th>
                             <th>Premiação</th>
+                            <th>Premiação almejada</th>
                         </tr>
                         <?php 
                             foreach ($arrInfoRelFolhaMes['info'] as $info) 
                             {
                                 $mesCompleto = ucfirst($info['mes_completo']);
+                                $premiacaoAlmejada = $info[0] . ' - ' . $info[1];
                                 echo "<tr>
                                         <td>{$mesCompleto}</td>
                                         <td>{$info['ano']}</td>
                                         <td>{$info['info_estagio']}</td>
-                                        <td>Bronze</td>
+                                        <td>{$info['premiacao']}</td>
+                                        <td>{$premiacaoAlmejada}</td>
                                     </tr>";
                             }
                         ?>

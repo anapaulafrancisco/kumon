@@ -16,6 +16,7 @@ class Relatorio extends CI_Controller {
 			$this->load->model('relatorio/relatorio_model');
 			$this->load->model('curso/curso_model');
 			$this->load->model('aluno/aluno_model');
+			$this->load->model('matricula/matricula_model');
         }
     	else
     	{
@@ -32,7 +33,7 @@ class Relatorio extends CI_Controller {
 			$this->session->unset_userdata('post_filtro');
 		}
 
-        $arrCurso = $this->curso_model->listarCursos();
+        $arrCurso = $this->curso_model->listarCursos(1);
 		
 		$arrDados = array(
 			'arrCurso' => $arrCurso, 
@@ -52,34 +53,39 @@ class Relatorio extends CI_Controller {
 			{
 				$this->session->set_userdata(array('post_filtro' => $arrPost));	
 	
-				$arrInfoAluno = $this->aluno_model->buscaAlunoCurso($arrPost['sltCurso']);
+				$arrInfoAluno = $this->aluno_model->buscaAlunoCurso($arrPost['sltCurso']); //detalhe essa funcao pode estar na matricula model
+				
+				$arrInfoMatricula = $this->matricula_model->verificaMatriculaAluno($arrPost['sltAluno'], $arrPost['sltCurso']);
+				$arrMatriculaTurma = $this->matricula_model->buscarMatriculaTurma($arrInfoMatricula['id_matricula']);
+
 				$periodo = date('Y-m-01', strtotime("-{$arrPost['sltPeriodo']} month"));
 	
 				$arrInfoRelFolhaMes = $this->relatorio_model->relFolhaMes($arrPost['sltCurso'], $arrPost['sltAluno'], $periodo);
-	
+
+				if(isset($arrInfoRelFolhaMes['info']))
+				{
+					$arrInfoPremiacaoAlmejada = array();
+					foreach($arrInfoRelFolhaMes['info'] as $infoRel)
+					{
+						$sequenciaPremiacao = $infoRel['sequencia_premiacao'] + 1;
+						$arrInfoPremiacaoAlmejada[] = $this->relatorio_model->buscaPremiacaoAlmejada($arrPost['sltCurso'], $infoRel['id_serie'], $sequenciaPremiacao);
+						
+					}
+		
+					foreach($arrInfoPremiacaoAlmejada as $indice => $infoAlmejada)
+					{
+						array_push($arrInfoRelFolhaMes['info'][$indice], $infoAlmejada['estagio_folhas'], $infoAlmejada['classificacao']);
+					}
+					
+				}
+
 				$arrDados['arrInfoRelFolhaMes'] = $arrInfoRelFolhaMes;
 				$arrDados['arrInfoAluno'] = $arrInfoAluno;
+				$arrDados['arrMatriculaTurma'] = $arrMatriculaTurma;
 			}
 		}
 		
 		$this->load->view('relatorio/lst_relatorio_view', $arrDados);
-	}
-
-    //-----------------------------------------------------------
-
-	/**
-	 * Funcao responsavel por exibir o relatorio
-	 * 
-	 * @param type $idRelatorio 
-	 */
-	public function ver($idRelatorio)
-	{
-		$idRelatorioDescrip = base64_decode(urldecode($idRelatorio));
-		$arrRelatorio = $this->relatorio_model->buscarRelatorio($idRelatorioDescrip);
-
-		$arrDados = array('arrRelatorio' => $arrRelatorio);
-
-		$this->load->view('relatorio/ver_relatorio_view', $arrDados);
 	}
 }
 

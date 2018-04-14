@@ -70,7 +70,7 @@
             <li <?php echo $this->uri->segment(1) == 'unidade' ? "class='active'" : "" ?>><a href="<?php echo base_url('unidade/editar'); ?>"><i class="fa fa-home"></i> <span>Unidade</span></a></li>
             <li <?php echo $this->uri->segment(1) == 'pessoa' ? "class='active'" : "" ?>><a href="<?php echo base_url('pessoa/gerenciar'); ?>"><i class="fa fa-graduation-cap"></i> <span>Pessoa</span></a></li>
             <li <?php echo $this->uri->segment(1) == 'aluno' ? "class='active'" : "" ?>><a href="<?php echo base_url('aluno/gerenciar');?>"><i class="fa fa-user"></i> <span>Aluno</span></a></li>
-            <li><a href="#"><i class="fa fa-book"></i> <span>Matricula</span></a></li>
+            <li <?php echo $this->uri->segment(1) == 'matricula' ? "class='active'" : "" ?>><a href="<?php echo base_url('matricula/gerenciar');?>"><i class="fa fa-book"></i> <span>Matrícula</span></a></li>
             <li><a href="#"><i class="fa fa-edit"></i> <span>Lançar estágio</span></a></li>
             <li class="treeview">
                 <a>

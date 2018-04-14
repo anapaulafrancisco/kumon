@@ -18,7 +18,8 @@ class Aluno extends CI_Controller {
 	        // 	redirect('login');
 	        // }
 
-	        $this->load->model('aluno/aluno_model');
+			$this->load->model('aluno/aluno_model');
+			$this->load->model('serie/serie_model');
 		}
     	else
     	{
@@ -43,7 +44,10 @@ class Aluno extends CI_Controller {
 	 */
 	public function formIncluirAluno()
 	{
-		$this->load->view('aluno/frm_incluir_aluno_view');
+		$arrInfoSerie = $this->serie_model->listarSerie();
+		$arrDados = array('arrInfoSerie' => $arrInfoSerie);
+
+		$this->load->view('aluno/frm_incluir_aluno_view', $arrDados);
 	}
 	
 	//-----------------------------------------------------------
@@ -57,8 +61,9 @@ class Aluno extends CI_Controller {
 	{
 		$idAlunoDescrip = base64_decode(urldecode($idAluno));
 		$arrAluno = $this->aluno_model->buscarAluno($idAlunoDescrip);
+		$arrInfoSerie = $this->serie_model->listarSerie();
 
-		$arrDados = array('arrAluno' => $arrAluno);
+		$arrDados = array('arrAluno' => $arrAluno, 'arrInfoSerie' => $arrInfoSerie);
 		$this->load->view('aluno/edt_aluno_view', $arrDados);
 	}
 
@@ -74,7 +79,8 @@ class Aluno extends CI_Controller {
 			$arrPost = $this->input->post();
 			
 			$this->form_validation->set_rules('txtNome', 'Nome', 'trim|required|min_length[2]');
-
+			$this->form_validation->set_rules('txtCPF', 'CPF', 'trim|required|is_unique[aluno.cpf]');
+			
 			$this->form_validation->set_error_delimiters("<p style='color: #E74C3C;'>", "</p>");
 
 			if ($this->form_validation->run() == FALSE)
@@ -100,6 +106,7 @@ class Aluno extends CI_Controller {
 					'sexo' => $arrPost['rdoSexo'],
 					'celular' => trim($arrPost['txtCelular']),
 					'telefone' => trim($arrPost['txtTelResidencial']),
+					'id_serie' => $arrPost['sltSerie'],
 					'cep' => trim($arrPost['txtCEP']),
 					'endereco' => mb_strtoupper(trim($arrPost['txtEndereco'])),
 					'bairro' => mb_strtoupper(trim($arrPost['txtBairro'])),
@@ -186,6 +193,7 @@ class Aluno extends CI_Controller {
 					'sexo' => $arrPost['rdoSexo'],
 					'celular' => trim($arrPost['txtCelular']),
 					'telefone' => trim($arrPost['txtTelResidencial']),
+					'id_serie' => $arrPost['sltSerie'],
 					'cep' => trim($arrPost['txtCEP']),
 					'endereco' => mb_strtoupper(trim($arrPost['txtEndereco'])),
 					'bairro' => mb_strtoupper(trim($arrPost['txtBairro'])),
@@ -215,4 +223,4 @@ class Aluno extends CI_Controller {
 			}
 		}
 	}
-}   
+}

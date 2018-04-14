@@ -87,3 +87,11 @@ $route['relatorio/ver/(:any)'] = 'relatorio/relatorio/ver/$1';
 //UNIDADE
 $route['unidade/editar'] = 'unidade/unidade/formEditarUnidade';
 $route['unidade/editar/(:any)/salvar'] = 'unidade/unidade/editarUnidade';
+
+//MATRICULA
+$route['matricula/gerenciar'] = 'matricula/matricula/index';
+$route['matricula/ver/(:any)'] = 'matricula/matricula/ver/$1';
+$route['matricula/incluir'] = 'matricula/matricula/formIncluirMatricula';
+$route['matricula/editar/(:any)'] = 'matricula/matricula/formEditarMatricula/$1';
+$route['matricula/incluir/salvar'] = 'matricula/matricula/incluirMatricula';
+$route['matricula/editar/(:any)/salvar'] = 'matricula/matricula/editarMatricula';

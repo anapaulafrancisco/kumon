@@ -159,6 +159,9 @@ $(function () {
             txtTelResidencial: {
                 required: true
             },
+            sltSerie: {
+                required: true
+            },
             txtCEP: {
                 required: true
             },
@@ -182,7 +185,7 @@ $(function () {
         },
         messages: {
             txtNome: {
-                required: "O campo Nome é obrigatório",
+                required: "O campo Nome é obrigatório.",
                 minlength: "O campo Nome deve conter no mínimo 2 caracteres."
             },
             txtEmail: {
@@ -194,6 +197,9 @@ $(function () {
             },
             txtTelResidencial: {
                 required: "O campo Telefone Residencial é obrigatório."
+            },
+            sltSerie: {
+                required: "O campo Série é obrigatório."
             },
             txtCEP: {
                 required: "O campo CEP é obrigatório."

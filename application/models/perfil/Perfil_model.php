@@ -23,11 +23,11 @@ class Perfil_model extends CI_Model {
 	/**
 	 * Funcao responsavel por excluir os perfis cadastrados para o usuario
      * 
-	 * @param type $idUsuarioDescrip 
+	 * @param type $idUsuario 
 	 * @return type
 	 */
-	public function excluirPerfil($idUsuarioDescrip)
+	public function excluirPerfil($idUsuario)
 	{
-		$this->db->delete('usuario_perfil', array('id_usuario' => $idUsuarioDescrip));
+		$this->db->delete('usuario_perfil', array('id_usuario' => $idUsuario));
 	}
 }

@@ -40,42 +40,42 @@
                             <form class="form-horizontal">
                                 <div class="box-body">
                                     <div class="form-group">
-                                        <label for="txtNome" class="control-label col-md-3 col-sm-3 col-xs-12">Nome</label>
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Nome</label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <input type="text" class="form-control" disabled="disabled" value="<?php echo $arrPessoa['nome_pessoa']; ?>">
                                         </div>
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="txtEmail" class="control-label col-md-3 col-sm-3 col-xs-12">Email</label>
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Email</label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <input type="text" class="form-control" disabled="disabled" value="<?php echo $arrPessoa['email']; ?>">
                                         </div>
                                     </div>
 
                                     <div class='form-group'>
-                                        <label for="txtTelResidencial" class='control-label col-md-3 col-sm-3 col-xs-12'>Telefone Residencial</label>
+                                        <label class='control-label col-md-3 col-sm-3 col-xs-12'>Telefone Residencial</label>
                                         <div class='col-md-6 col-sm-6 col-xs-12'>
                                             <input type="text" class="form-control" disabled="disabled" value="<?php echo $arrPessoa['telefone']; ?>">
                                         </div>
                                     </div>
 
                                     <div class='form-group'>
-                                        <label for="txtCelular" class='control-label col-md-3 col-sm-3 col-xs-12'>Celular</label>
+                                        <label class='control-label col-md-3 col-sm-3 col-xs-12'>Celular</label>
                                         <div class='col-md-6 col-sm-6 col-xs-12'>
                                            <input type="text" class="form-control" disabled="disabled" value="<?php echo $arrPessoa['celular']; ?>">
                                         </div>
                                     </div>
                                         
                                     <div class='form-group'>
-                                        <label for="txtEstado" class='control-label col-md-3 col-sm-3 col-xs-12'>Tipo</label>
+                                        <label class='control-label col-md-3 col-sm-3 col-xs-12'>Tipo</label>
                                         <div class='col-md-6 col-sm-6 col-xs-12'>
                                             <input type="text" class="form-control" disabled="disabled" value="<?php echo $arrPessoa['tipo']; ?>">
                                         </div>
                                     </div>
 
                                     <div class='form-group'>
-                                        <label class='control-label col-md-3 col-sm-3 col-xs-12' for='first-name'>Status</label>
+                                        <label class='control-label col-md-3 col-sm-3 col-xs-12'>Status</label>
                                         <div class='col-md-6 col-sm-6 col-xs-12'>
                                             <?php $status = $arrPessoa['ativo'] ? 'Ativo' : 'Inativo'; ?>
 								            <input type="text" class="form-control" disabled="disabled" value="<?php echo $status; ?>">

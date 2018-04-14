@@ -100,7 +100,7 @@
 
                                     <div id="div-responsavel" style="display: none;">
                                         <div class='form-group'>
-                                            <label for="txtCPF"  class='control-label col-md-3 col-sm-3 col-xs-12'>Nome responsável *</label>
+                                            <label for="txtNomeResponsavel"  class='control-label col-md-3 col-sm-3 col-xs-12'>Nome responsável *</label>
                                             <div class='col-md-6 col-sm-6 col-xs-12'>
                                                 <input type="text" name="txtNomeResponsavel" id="txtNomeResponsavel" class="form-control <?php echo (form_error('txtNomeResponsavel') ? 'erro_formulario' : ''); ?>" value="<?php echo set_value('txtNomeResponsavel'); ?>">
                                                 <?php echo form_error('txtNomeResponsavel'); ?>
@@ -108,7 +108,7 @@
                                         </div>
 
                                         <div class='form-group'>
-                                            <label for="txtCPF"  class='control-label col-md-3 col-sm-3 col-xs-12'>CPF responsável *</label>
+                                            <label for="txtCPFResponsavel"  class='control-label col-md-3 col-sm-3 col-xs-12'>CPF responsável *</label>
                                             <div class='col-md-6 col-sm-6 col-xs-12'>
                                                 <input type="text" name="txtCPFResponsavel" id="txtCPFResponsavel" class="form-control <?php echo (form_error('txtCPFResponsavel') ? 'erro_formulario' : ''); ?>" value="<?php echo set_value('txtCPFResponsavel'); ?>">
                                                 <?php echo form_error('txtCPFResponsavel'); ?>
@@ -140,6 +140,29 @@
                                         </div>
                                     </div>
 
+                                    <div class='form-group'>
+                                        <label for="txtEstado" class='control-label col-md-3 col-sm-3 col-xs-12'>Série *</label>
+                                        <div class='col-md-6 col-sm-6 col-xs-12'>
+                                            <select name="sltSerie" id="sltSerie" class="form-control" >
+                                            <option value="">Selecione</option>
+                                                <?php 
+
+                                                    foreach($arrInfoSerie as $nivel => $serie)
+                                                    {
+                                                        echo "<optgroup label='{$nivel}'>";
+                                                        foreach($serie as $idSerie => $nomeSerie)
+                                                        {
+                                                            $repopular = set_select('sltSerie', $idSerie);
+                                                            echo "<option value='{$idSerie}' {$repopular} >{$nomeSerie}</option>";
+                                                        }
+                                                        echo "</optgroup>";
+                                                    }
+                                                
+                                                ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    
                                     <div class='form-group'>
                                         <label for="txtCEP" class='control-label col-md-3 col-sm-3 col-xs-12'>CEP *</label>
                                         <div class='col-md-6 col-sm-6 col-xs-12'>
@@ -173,7 +196,7 @@
                                     </div>
 
                                     <div class='form-group'>
-                                        <label for="txtEstado" class='control-label col-md-3 col-sm-3 col-xs-12'>Estado</label>
+                                        <label for="sltEstado" class='control-label col-md-3 col-sm-3 col-xs-12'>Estado</label>
                                         <div class='col-md-6 col-sm-6 col-xs-12'>
                                             <select name="sltEstado" id="sltEstado" class="form-control">
                                                 <?php 

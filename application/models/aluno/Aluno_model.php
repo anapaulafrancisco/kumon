@@ -90,8 +90,9 @@ class Aluno_model extends CI_Model {
 	public function buscarAluno($idAluno)
 	{
 		$this->db->where('id_aluno', $idAluno); 
-		$this->db->select("aluno.*, DATE_FORMAT(aluno.data_nascimento,'%d/%m/%Y') AS data_nascimento_formatada, TIMESTAMPDIFF(YEAR, aluno.data_nascimento, CURDATE()) AS idade");
-		$result = $this->db->get('aluno');
+		$this->db->join('serie s', 's.id_serie = a.id_serie');
+		$this->db->select("a.*, DATE_FORMAT(a.data_nascimento,'%d/%m/%Y') AS data_nascimento_formatada, TIMESTAMPDIFF(YEAR, a.data_nascimento, CURDATE()) AS idade, s.nome_serie");
+		$result = $this->db->get('aluno a');
 
 		if (is_object($result) && $result->num_rows() > 0)
         {

@@ -40,35 +40,35 @@
                             <form class="form-horizontal">
                                 <div class="box-body">
                                     <div class="form-group">
-                                        <label for="txtNome" class="control-label col-md-3 col-sm-3 col-xs-12">Nome</label>
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Nome</label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <input type="text" class="form-control" disabled="disabled" value="<?php echo $arrAluno['nome_aluno']; ?>">
                                         </div>
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="txtEmail" class="control-label col-md-3 col-sm-3 col-xs-12">Email</label>
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Email</label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <input type="text" class="form-control" disabled="disabled" value="<?php echo $arrAluno['email']; ?>">
                                         </div>
                                     </div>
 
                                     <div class='form-group'>
-                                        <label for="txtCPF"  class='control-label col-md-3 col-sm-3 col-xs-12'>CPF</label>
+                                        <label class='control-label col-md-3 col-sm-3 col-xs-12'>CPF</label>
                                         <div class='col-md-6 col-sm-6 col-xs-12'>
                                             <input type="text" class="form-control" disabled="disabled" value="<?php echo $arrAluno['cpf']; ?>">
                                         </div>
                                     </div>
 
                                     <div class='form-group'>
-                                        <label for="txtDtNasc" class='control-label col-md-3 col-sm-3 col-xs-12'>Data Nascimento</label>
+                                        <label class='control-label col-md-3 col-sm-3 col-xs-12'>Data Nascimento</label>
                                         <div class='col-md-6 col-sm-6 col-xs-12'>
                                             <input type="text" class="form-control" disabled="disabled" value="<?php echo $arrAluno['data_nascimento_formatada']; ?>">
                                         </div>
                                     </div>
                                     
                                     <div class='form-group'>
-                                        <label for="txtIdade" class='control-label col-md-3 col-sm-3 col-xs-12'>Idade</label>
+                                        <label class='control-label col-md-3 col-sm-3 col-xs-12'>Idade</label>
                                         <div class='col-md-6 col-sm-6 col-xs-12'>
                                             <input type="text" name="txtIdade" id="txtIdade" class="form-control" value="<?php echo $arrAluno['idade']; ?>" disabled>
                                         </div>
@@ -78,14 +78,14 @@
 
                                     <div id="div-responsavel" <?php echo $blocoResponsavel; ?>>
                                         <div class='form-group'>
-                                            <label for="txtCPF"  class='control-label col-md-3 col-sm-3 col-xs-12'>Nome responsável</label>
+                                            <label class='control-label col-md-3 col-sm-3 col-xs-12'>Nome responsável</label>
                                             <div class='col-md-6 col-sm-6 col-xs-12'>
                                                 <input type="text" class="form-control" disabled="disabled" value="<?php echo $arrAluno['nome_responsavel']; ?>">
                                             </div>
                                         </div>
 
                                         <div class='form-group'>
-                                            <label for="txtCPF"  class='control-label col-md-3 col-sm-3 col-xs-12'>CPF responsável</label>
+                                            <label class='control-label col-md-3 col-sm-3 col-xs-12'>CPF responsável</label>
                                             <div class='col-md-6 col-sm-6 col-xs-12'>
                                                 <input type="text" class="form-control" disabled="disabled" value="<?php echo $arrAluno['cpf_responsavel']; ?>">
                                             </div>
@@ -101,49 +101,56 @@
                                     </div>
                                     
                                     <div class='form-group'>
-                                        <label for="txtCelular" class='control-label col-md-3 col-sm-3 col-xs-12'>Celular</label>
+                                        <label class='control-label col-md-3 col-sm-3 col-xs-12'>Celular</label>
                                         <div class='col-md-6 col-sm-6 col-xs-12'>
                                            <input type="text" class="form-control" disabled="disabled" value="<?php echo $arrAluno['celular']; ?>">
                                         </div>
                                     </div>
                                         
                                     <div class='form-group'>
-                                        <label for="txtTelResidencial" class='control-label col-md-3 col-sm-3 col-xs-12'>Telefone Residencial</label>
+                                        <label class='control-label col-md-3 col-sm-3 col-xs-12'>Telefone Residencial</label>
                                         <div class='col-md-6 col-sm-6 col-xs-12'>
                                             <input type="text" class="form-control" disabled="disabled" value="<?php echo $arrAluno['telefone']; ?>">
                                         </div>
                                     </div>
 
                                     <div class='form-group'>
-                                        <label for="txtCEP" class='control-label col-md-3 col-sm-3 col-xs-12'>CEP</label>
+                                        <label class='control-label col-md-3 col-sm-3 col-xs-12'>Série</label>
+                                        <div class='col-md-6 col-sm-6 col-xs-12'>
+                                            <input type="text" class="form-control" disabled="disabled" value="<?php echo $arrAluno['nome_serie']; ?>">
+                                        </div>
+                                    </div>
+
+                                    <div class='form-group'>
+                                        <label class='control-label col-md-3 col-sm-3 col-xs-12'>CEP</label>
                                         <div class='col-md-6 col-sm-6 col-xs-12'>
                                            <input type="text" class="form-control" disabled="disabled" value="<?php echo $arrAluno['cep']; ?>">
                                         </div>
                                     </div>
 
                                     <div class='form-group'>
-                                        <label for="txtEndereco" class='control-label col-md-3 col-sm-3 col-xs-12'>Endereço</label>
+                                        <label class='control-label col-md-3 col-sm-3 col-xs-12'>Endereço</label>
                                         <div class='col-md-6 col-sm-6 col-xs-12'>
                                             <input type="text" class="form-control" disabled="disabled" value="<?php echo $arrAluno['endereco']; ?>">
                                         </div>
                                     </div>
 
                                     <div class='form-group'>
-                                        <label for="txtBairro" class='control-label col-md-3 col-sm-3 col-xs-12'>Bairro</label>
+                                        <label class='control-label col-md-3 col-sm-3 col-xs-12'>Bairro</label>
                                         <div class='col-md-6 col-sm-6 col-xs-12'>
                                             <input type="text" class="form-control" disabled="disabled" value="<?php echo $arrAluno['bairro']; ?>">
                                         </div>
                                     </div>
 
                                     <div class='form-group'>
-                                        <label for="txtCidade" class='control-label col-md-3 col-sm-3 col-xs-12'>Cidade</label>
+                                        <label class='control-label col-md-3 col-sm-3 col-xs-12'>Cidade</label>
                                         <div class='col-md-6 col-sm-6 col-xs-12'>
                                             <input type="text" class="form-control" disabled="disabled" value="<?php echo $arrAluno['cidade']; ?>">
                                         </div>
                                     </div>
 
                                     <div class='form-group'>
-                                        <label for="txtEstado" class='control-label col-md-3 col-sm-3 col-xs-12'>Estado</label>
+                                        <label class='control-label col-md-3 col-sm-3 col-xs-12'>Estado</label>
                                         <div class='col-md-6 col-sm-6 col-xs-12'>
                                             <input type="text" class="form-control" disabled="disabled" value="<?php echo $arrAluno['estado']; ?>">
                                         </div>
