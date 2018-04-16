@@ -24,10 +24,10 @@
    			<!-- Content Header (Page header) -->
 			<section class="content-header">
 				<h1>
-					Matrícula <small>Gerenciamento Matrícula</small>
+					Progresso Estudo <small>Gerenciamento Progresso</small>
 				</h1>
 				<ol class="breadcrumb">
-					<li><a href="<?php echo base_url('matricula/gerenciar');?>"><i class="fa fa-book"></i> Matrícula</a></li>
+					<li><a href="<?php echo base_url('progresso/gerenciar');?>"><i class="fa fa-edit"></i> Progresso Estudo</a></li>
 				</ol>
 			</section>
 
@@ -36,10 +36,10 @@
 
                 <div class="box">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Lista de Matrículas</h3>
+                        <h3 class="box-title">Lista de alunos matriculados</h3>
 
                         <div class="pull-right box-tools">
-                            <a href='<?php echo base_url("matricula/incluir"); ?>' class='btn btn-success btn-sm'><i class="fa fa-plus"></i> Incluir </a>
+                            <a href='<?php echo base_url("progresso/incluir"); ?>' class='btn btn-success btn-sm'><i class="fa fa-plus"></i> Lançar estágio </a>
                         </div>
 
                     </div>
@@ -49,13 +49,12 @@
 
                         <?php echo Notificacao::getNotificacao(); ?>
                         
-                        <table id="tbl-matricula" class="table table-bordered table-striped dt-responsive">
+                        <table id="tbl-progresso" class="table table-bordered table-striped dt-responsive">
                             <thead>
                                 <tr>
                                     <th>Curso</th>
                                     <th>Aluno</th>
                                     <th>Data Matrícula</th>
-                                    <th>Status</th>
                                     <th>Ação</th>
                                 </tr>
                             </thead>
@@ -64,20 +63,16 @@
                                 
                                     foreach($arrMatricula as $matricula) 
 									{
-                                        $pathVerMatricula = base_url("matricula/ver/" .  urlencode(base64_encode($matricula['id_matricula']))); 
-                                        $pathEditarMatricula = base_url("matricula/editar/" .  urlencode(base64_encode($matricula['id_matricula']))); 
-                                            
+                                        $pathVerProgresso = base_url("progresso/ver/" .  urlencode(base64_encode($matricula['id_curso'])) . "/" . urlencode(base64_encode($matricula['id_aluno']))); 
+                                     
                                         $dataMysql = strtotime($matricula['data_matricula']); //usado para ordenacao correta no datatable
-                                        $status = $matricula['ativo'] ? 'Ativa' : 'Inativa';
-
+                                    
                                         echo "<tr>
                                                 <td>{$matricula['nome_curso']}</td>
                                                 <td>{$matricula['nome_aluno']}</td>
                                                 <td data-search='{$matricula['data_matricula']}' data-order='{$dataMysql}'>{$matricula['data_matricula_formatada']}</td>
-                                                <td>{$status}</td>
                                                 <td>
-                                                    <a href='{$pathVerMatricula}' class='btn btn-primary btn-xs'><i class='fa fa-search'></i> Ver</a>
-                                                    <a href='{$pathEditarMatricula}' class='btn btn-info btn-xs'><i class='fa fa-pencil'></i> Editar</a>                             
+                                                    <a href='{$pathVerProgresso}' class='btn btn-primary btn-xs'><i class='fa fa-search'></i> Ver</a>
                                                 </td>
                                             </tr>";   
                                     }
@@ -104,7 +99,7 @@
     
     <script>
         $(function () {
-            $('#tbl-matricula').DataTable({
+            $('#tbl-progresso').DataTable({
                 language: {
                     url: '//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json'
                 },

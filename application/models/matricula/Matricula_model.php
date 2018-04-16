@@ -18,9 +18,17 @@ class Matricula_model extends CI_Model {
 	 */
 	public function listarMatricula($ativo = '')
 	{
+		$where = '';
+		if(!empty($ativo))
+		{
+			$where = "AND m.ativo = {$ativo}";
+		}
+
 		$result = $this->db->query("SELECT
 										m.id_matricula,
+										c.id_curso,
 										c.nome_curso,
+										a.id_aluno,
 										a.nome_aluno,
 										e.nome_estagio,
 										m.data_matricula,
@@ -31,8 +39,9 @@ class Matricula_model extends CI_Model {
 										JOIN aluno a ON (a.id_aluno = m.id_aluno)	      
 										JOIN estagio e ON (e.id_estagio = m.id_estagio)
 										JOIN curso c ON (c.id_curso = e.id_curso)    
+										{$where}
 									ORDER BY
-										c.nome_curso");
+										a.nome_aluno");
 
         if (is_object($result) && $result->num_rows() > 0)
         {

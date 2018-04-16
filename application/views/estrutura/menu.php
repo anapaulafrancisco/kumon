@@ -31,13 +31,13 @@
             <!-- User Account: style can be found in dropdown.less -->
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <img src="<?php echo base_url('template_admin/dist/img/avatar2.png'); ?>" class="user-image" alt="Imagem Usuário">
+                        <img src="<?php echo base_url('assets/imgs/foto_padrao.png'); ?>" class="user-image" alt="Imagem Usuário">
                         <span class="hidden-xs"><?php echo $arrCredencial['nome_usuario']; ?></span>
                     </a>
                     <ul class="dropdown-menu">
                         <!-- User image -->
                         <li class="user-header">
-                            <img src="<?php echo base_url('template_admin/dist/img/avatar2.png'); ?>" class="img-circle" alt="Imagem Usuário">
+                            <img src="<?php echo base_url('assets/imgs/foto_padrao.png'); ?>" class="img-circle" alt="Imagem Usuário">
                             <p>
                                 <?php echo $arrCredencial['nome_usuario'] . ' - '. ucfirst($arrCredencial['perfis_nomes']); ?>
                                 <small><?php echo $arrCredencial['email']; ?></small>
@@ -71,7 +71,7 @@
             <li <?php echo $this->uri->segment(1) == 'pessoa' ? "class='active'" : "" ?>><a href="<?php echo base_url('pessoa/gerenciar'); ?>"><i class="fa fa-graduation-cap"></i> <span>Pessoa</span></a></li>
             <li <?php echo $this->uri->segment(1) == 'aluno' ? "class='active'" : "" ?>><a href="<?php echo base_url('aluno/gerenciar');?>"><i class="fa fa-user"></i> <span>Aluno</span></a></li>
             <li <?php echo $this->uri->segment(1) == 'matricula' ? "class='active'" : "" ?>><a href="<?php echo base_url('matricula/gerenciar');?>"><i class="fa fa-book"></i> <span>Matrícula</span></a></li>
-            <li><a href="#"><i class="fa fa-edit"></i> <span>Lançar estágio</span></a></li>
+            <li <?php echo $this->uri->segment(1) == 'progresso' ? "class='active'" : "" ?>><a href="<?php echo base_url('progresso/gerenciar');?>"><i class="fa fa-edit"></i> <span>Progresso Estudo</span></a></li>
             <li class="treeview">
                 <a>
                     <i class="fa fa-pie-chart"></i> <span>Relatórios</span>

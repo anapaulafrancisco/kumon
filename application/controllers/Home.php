@@ -14,6 +14,7 @@ class Home extends CI_Controller {
 			$this->credencial = get_credencial();
 
 			$this->load->model('aluno/aluno_model');
+			$this->load->model('matricula/matricula_model');
 		}
     	else
     	{
@@ -24,9 +25,12 @@ class Home extends CI_Controller {
 	public function index()
 	{
 		$arrAluno = $this->aluno_model->listarAluno(1);
+		$arrMatricula = $this->matricula_model->listarMatricula(1);
+		
 		$qtdeAluno = count($arrAluno);
+		$qtdeMatricula = count($arrMatricula);
 
-		$arrDados = array('qtdeAluno' => $qtdeAluno);
+		$arrDados = array('qtdeAluno' => $qtdeAluno, 'qtdeMatricula' => $qtdeMatricula);
 		$this->load->view('home_view', $arrDados);
 	}
 }

@@ -64,7 +64,7 @@ class Relatorio_model extends CI_Model {
                                         e.id_curso = {$idCurso} 
                                     AND
                                         p.data_cadastro >= '{$periodo}' ");
-                                    
+
 		if (is_object($result) && $result->num_rows() > 0)
         {
            return array('resp' => 'ok', 'info' => $result->result_array());

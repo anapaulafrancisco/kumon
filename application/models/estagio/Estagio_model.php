@@ -18,6 +18,8 @@ class Estagio_model extends CI_Model {
      */
     public function buscaEstagioCurso($idCurso)
     {
+
+        $this->db->where('ativo', 1); 
         $this->db->where('id_curso', $idCurso); 
 		$result = $this->db->get('estagio');
 

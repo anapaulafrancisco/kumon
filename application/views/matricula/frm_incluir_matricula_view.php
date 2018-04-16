@@ -75,7 +75,7 @@
                                 <div class="box-body">
 
                                     <div class='form-group'>
-                                        <label for="txtEstado" class='control-label col-md-3 col-sm-3 col-xs-12'>Curso *</label>
+                                        <label for="sltCurso" class='control-label col-md-3 col-sm-3 col-xs-12'>Curso *</label>
                                         <div class='col-md-6 col-sm-6 col-xs-12'>
                                             <select name="sltCurso" id="sltCurso" class="form-control">
                                             <option value="">Selecione</option>
@@ -92,7 +92,7 @@
                                     </div>
                                     
                                     <div class='form-group'>
-                                        <label class='control-label col-md-3 col-sm-3 col-xs-12'>Estágio *</label>
+                                        <label for="sltEstagio" class='control-label col-md-3 col-sm-3 col-xs-12'>Estágio *</label>
                                         <div class='col-md-6 col-sm-6 col-xs-12'>
                                             <select name="sltEstagio" id="sltEstagio" class="form-control">
                                                 <option value="">Selecione o curso</option>

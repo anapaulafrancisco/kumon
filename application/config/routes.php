@@ -95,3 +95,29 @@ $route['matricula/incluir'] = 'matricula/matricula/formIncluirMatricula';
 $route['matricula/editar/(:any)'] = 'matricula/matricula/formEditarMatricula/$1';
 $route['matricula/incluir/salvar'] = 'matricula/matricula/incluirMatricula';
 $route['matricula/editar/(:any)/salvar'] = 'matricula/matricula/editarMatricula';
+
+//CURSO
+$route['curso/gerenciar'] = 'curso/curso/index';
+$route['curso/ver/(:any)'] = 'curso/curso/ver/$1';
+$route['curso/incluir'] = 'curso/curso/formIncluirCurso';
+$route['curso/editar/(:any)'] = 'curso/curso/formEditarCurso/$1';
+$route['curso/incluir/salvar'] = 'curso/curso/incluirCurso';
+$route['curso/editar/(:any)/salvar'] = 'curso/curso/editarCurso';
+
+//ESTAGIO
+$route['estagio/gerenciar'] = 'estagio/estagio/index';
+$route['estagio/ver/(:any)'] = 'estagio/estagio/ver/$1';
+$route['estagio/incluir'] = 'estagio/estagio/formIncluirEstagio';
+$route['estagio/editar/(:any)'] = 'estagio/estagio/formEditarEstagio/$1';
+$route['estagio/incluir/salvar'] = 'estagio/estagio/incluirEstagio';
+$route['estagio/editar/(:any)/salvar'] = 'estagio/estagio/editarEstagio';
+
+//ESTAGIO - PROGRESSO ESTUDO
+$route['progresso/gerenciar'] = 'progresso/progresso/index';
+$route['progresso/ver/(:any)/(:any)'] = 'progresso/progresso/ver/$1/$2';
+$route['progresso/incluir'] = 'progresso/progresso/formIncluirProgresso';
+//$route['progresso/editar/(:any)'] = 'progresso/progresso/formEditarProgresso/$1';
+$route['progresso/incluir/salvar'] = 'progresso/progresso/incluirProgresso';
+//$route['progresso/editar/(:any)/salvar'] = 'progresso/progresso/editarProgresso';
+$route['progresso/editar/estagio_lancado'] = 'progresso/progresso/editarProgresso';
+$route['progresso/excluir/salvar'] = 'progresso/progresso/excluirProgresso';
