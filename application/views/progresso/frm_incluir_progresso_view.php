@@ -2,6 +2,8 @@
     getCabecalho(); 
     $arrCredencial = get_credencial();
 ?>
+    <!-- jquery-ui CSS-->
+    <link href="<?php echo base_url('assets/css/jquery-ui/jquery-ui.min.css'); ?>" rel="stylesheet">
     <!-- bootstrap select -->
     <link href="<?php echo base_url('assets/css/bootstrap-select.min.css'); ?>" rel="stylesheet">
 
@@ -107,6 +109,14 @@
                                             <?php echo form_error('txtQtdeFolha'); ?>
                                         </div>
                                     </div>
+
+                                    <div class='form-group'>
+                                        <label for="txtDataLancamento" class='control-label col-md-3 col-sm-3 col-xs-12'>Data *</label>
+                                        <div class='col-md-6 col-sm-6 col-xs-12'>
+                                            <input type="text" name="txtDataLancamento" id="txtDataLancamento" class="form-control <?php echo (form_error('txtDataLancamento') ? 'erro_formulario' : ''); ?>" value="<?php echo set_value('txtDataLancamento'); ?>" >
+                                            <?php echo form_error('txtDataLancamento'); ?>
+                                        </div>
+                                    </div>
                                                     
                                 </div>
                                 <!-- /.box-body -->
@@ -133,6 +143,12 @@
 
     <!--jquery.validate (validacao formulario)-->
     <script src="<?php echo base_url('assets/js/jquery.validate.min.js'); ?>"></script>
+    <!-- maskedinput (mascaras)-->
+	<script src="<?php echo base_url('assets/js/jquery.maskedinput.min.js'); ?>"></script>
+    <!-- jquery ui -->
+	<script src="<?php echo base_url('assets/js/jquery-ui.min.js'); ?>"></script>
+    <!--datapicker pt-BR (calendario traducao)-->
+    <script src="<?php echo base_url('assets/js/datepicker-pt-BR.js'); ?>"></script>
     <!-- bootstrap select -->
     <script src="<?php echo base_url('assets/js/bootstrap-select.min.js'); ?>"></script>
     <!-- bootstrap select traducao-->

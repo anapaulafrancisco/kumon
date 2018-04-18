@@ -88,12 +88,12 @@
                                         $pathVerProgresso = base_url("progresso/ver/" .  urlencode(base64_encode($progresso['id_progresso']))); 
                                         $idProgressoCrip = urlencode(base64_encode($progresso['id_progresso']));
                                         $idModal = $progresso['id_progresso'];
-                                        $dataMysql = strtotime($progresso['data_cadastro']); //usado para ordenacao correta no datatable
+                                        $dataMysql = strtotime($progresso['data_lancamento']); //usado para ordenacao correta no datatable
                                     
                                         echo "<tr>
                                                 <td>{$progresso['nome_estagio']}</td>
                                                 <td>{$progresso['qtde_folhas']}</td>
-                                                <td data-search='{$progresso['data_cadastro']}' data-order='{$dataMysql}'>{$progresso['data_cadastro_formatada']}</td>
+                                                <td data-search='{$progresso['data_lancamento']}' data-order='{$dataMysql}'>{$progresso['data_lancamento_formatada']}</td>
                                                 <td>
                                                     <button type='button' class='btn btn-info btn-xs editar-pe' id='{$idModal}' name='btnEditarPE'><i class='fa fa-pencil'></i> Editar</button>     
                                                     <button type='button' class='btn btn-danger btn-xs' data-toggle='modal' data-target='.botao-excluir-progresso-{$idModal}'><i class='fa fa-trash-o'></i> Excluir</button>                             

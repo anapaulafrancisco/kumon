@@ -83,6 +83,7 @@ class Progresso extends CI_Controller {
 			$this->form_validation->set_rules('sltAluno', 'Aluno', 'required');
 			$this->form_validation->set_rules('sltEstagio', 'Estágio', 'required');
 			$this->form_validation->set_rules('txtQtdeFolha', 'Qtde folhas', 'required|integer');
+			$this->form_validation->set_rules('txtDataLancamento', 'Data', 'required');
 			
 			$this->form_validation->set_error_delimiters("<p style='color: #E74C3C;'>", "</p>");
 
@@ -92,14 +93,14 @@ class Progresso extends CI_Controller {
 			}
 			else
 			{
-				$dtProgressoEstudo = implode("-", array_reverse(explode("/", date('Y-m-d'))));
+				$dtProgressoEstudo = implode("-", array_reverse(explode("/", $arrPost['txtDataLancamento'])));
 				$dtProgressoEstudoVerificar = substr($dtProgressoEstudo, 0, 7);
 				
 				$arrProgressoEstudo = $this->progresso_model->verificaProgressoEstudo($arrPost['sltCurso'], $arrPost['sltAluno'], $dtProgressoEstudoVerificar);
 
 				if($arrProgressoEstudo)
 				{
-					Notificacao::setNotificacao("Estágio já foi lançado para este aluno, neste curso e neste mês! (Curso: {$arrProgressoEstudo['nome_curso']}, Aluno: {$arrProgressoEstudo['nome_aluno']}, Lançado por: {$arrProgressoEstudo['nome_usuario']}, Data: {$arrProgressoEstudo['data_cadastro_formatada']}).", Notificacao::$NOTIFICACAO_ERRO);
+					Notificacao::setNotificacao("Estágio já foi lançado para este aluno, neste curso e neste mês! (Curso: {$arrProgressoEstudo['nome_curso']}, Aluno: {$arrProgressoEstudo['nome_aluno']}, Lançado por: {$arrProgressoEstudo['nome_usuario']}, Data: {$arrProgressoEstudo['data_lancamento_formatada']}).", Notificacao::$NOTIFICACAO_ERRO);
 					redirect('progresso/gerenciar');
 				}
 
@@ -107,6 +108,7 @@ class Progresso extends CI_Controller {
 					'id_aluno' => $arrPost['sltAluno'], 
 					'id_estagio' => $arrPost['sltEstagio'],
 					'qtde_folhas' => trim($arrPost['txtQtdeFolha']),
+					'data_lancamento' => implode("-", array_reverse(explode("/", $arrPost['txtDataLancamento']))),
 					'id_usuario_cadastro' => $this->credencial['id_usuario'],
 					'data_cadastro' => date('Y-m-d H:i:s')
 				);

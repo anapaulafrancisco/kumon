@@ -25,8 +25,8 @@ class Progresso_model extends CI_Model {
 										p.id_progresso,
 										e.nome_estagio,                                    
 										p.qtde_folhas,
-										p.data_cadastro,
-										DATE_FORMAT(p.data_cadastro,'%d/%m/%Y') AS data_cadastro_formatada
+										p.data_lancamento,
+										DATE_FORMAT(p.data_lancamento,'%d/%m/%Y') AS data_lancamento_formatada
 									FROM
 										progresso_estudo p
 										JOIN estagio e ON (e.id_estagio = p.id_estagio)
@@ -37,7 +37,7 @@ class Progresso_model extends CI_Model {
 									AND 
 										a.id_aluno = {$idAluno}
 									ORDER BY
-										p.data_cadastro DESC");
+										p.data_lancamento DESC");
 
         if (is_object($result) && $result->num_rows() > 0)
         {
@@ -125,7 +125,7 @@ class Progresso_model extends CI_Model {
 		$result = $this->db->query("SELECT
 										a.nome_aluno,
 										c.nome_curso,
-										DATE_FORMAT(p.data_cadastro,'%d/%m/%Y') AS data_cadastro_formatada,
+										DATE_FORMAT(p.data_lancamento,'%d/%m/%Y') AS data_lancamento_formatada,
 										u.nome_usuario
 									FROM
 										progresso_estudo p
@@ -138,7 +138,7 @@ class Progresso_model extends CI_Model {
 									AND 
 										a.id_aluno = {$idAluno}
 									AND
-									 	DATE(p.data_cadastro) LIKE '{$dtProgressoEstudo}%'");
+									 	DATE(p.data_lancamento) LIKE '{$dtProgressoEstudo}%'");
 
         if (is_object($result) && $result->num_rows() > 0)
         {
