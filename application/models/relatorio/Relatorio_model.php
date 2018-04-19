@@ -21,9 +21,9 @@ class Relatorio_model extends CI_Model {
         $this->db->query("SET lc_time_names = 'pt_BR'");
  
         $result = $this->db->query("SELECT
-                                        DATE_FORMAT(p.data_cadastro, '%M') AS mes_completo,
-                                        DATE_FORMAT(p.data_cadastro, '%b') AS mes,	
-                                        YEAR(p.data_cadastro) AS ano,
+                                        DATE_FORMAT(p.data_lancamento, '%M') AS mes_completo,
+                                        DATE_FORMAT(p.data_lancamento, '%b') AS mes,	
+                                        YEAR(p.data_lancamento) AS ano,
                                         p.qtde_folhas,
                                         CONCAT(e.nome_estagio, ' - ', p.qtde_folhas) AS info_estagio,
                                         s.nivel,
@@ -63,7 +63,7 @@ class Relatorio_model extends CI_Model {
                                     AND 
                                         e.id_curso = {$idCurso} 
                                     AND
-                                        p.data_cadastro >= '{$periodo}' ");
+                                        p.data_lancamento >= '{$periodo}' ");
 
 		if (is_object($result) && $result->num_rows() > 0)
         {
