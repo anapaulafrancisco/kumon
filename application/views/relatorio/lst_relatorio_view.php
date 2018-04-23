@@ -42,7 +42,7 @@
 			<!-- Main content -->
 			<section class="content">
                     <?php
-               
+
                         if(isset($arrInfoRelFolhaMes) && in_array('ok',$arrInfoRelFolhaMes))
                         {
                             echo "<table id='dadosRel' style='display:none;'>

@@ -308,4 +308,98 @@ class Matricula extends CI_Controller {
 			}
 		}
 	}
+
+	//-----------------------------------------------------------
+
+	/**
+	 * Funcao responsavel por listar todos os dias/horarios dos alunos matriculados
+	 *
+	 * @return void
+	 */
+	public function listarHorario()
+	{
+		$whereFiltro = '';
+		$where = array();
+
+		if($this->input->post(NULL, TRUE))
+		{
+			$arrPost = $this->input->post();
+	
+			$this->session->set_userdata(array('post_filtro' => $arrPost));	
+
+			if(!empty($arrPost['sltCurso']))
+			{
+				$where[] = "AND c.id_curso = " . $arrPost['sltCurso'];	
+			}
+
+			if(!empty($arrPost['sltAluno']))
+			{
+				$where[] = "AND a.id_aluno = " . $arrPost['sltAluno'];	
+			}
+			
+			//tentar fazer com select multiplo
+			if(!empty($arrPost['sltDiaSemana']))
+			{
+				$where[] = "AND mt.dia_aula LIKE '%" . $arrPost['sltDiaSemana'] . "%'";	
+			}
+			
+			if(!empty($arrPost['txtHora']))
+			{
+				$where[] = "AND mt.horario_aula = '" . $arrPost['txtHora'] . "'";	
+			}
+
+			if(isset($arrPost['btnLimparFiltro']))
+			{
+				$this->session->unset_userdata('post_filtro');
+    		 	$where = array();
+		 	}
+		}	
+		else
+		{
+			if($this->session->has_userdata('post_filtro'))
+			{
+				$arrPost = $this->session->userdata('post_filtro');
+
+				if(!empty($arrPost['sltCurso']))
+				{
+					$where[] = "AND c.id_curso = " . $arrPost['sltCurso'];	
+				}
+
+				if(!empty($arrPost['sltAluno']))
+				{
+					$where[] = "AND a.id_aluno = " . $arrPost['sltAluno'];	
+				}
+				
+				//tentar fazer com select multiplo
+				if(!empty($arrPost['sltDiaSemana']))
+				{
+					$where[] = "AND mt.dia_aula LIKE '%" . $arrPost['sltDiaSemana'] . "%'";	
+				}
+
+				if(!empty($arrPost['txtHora']))
+				{
+					$where[] = "AND mt.horario_aula = '" . $arrPost['txtHora'] . "'";	
+				}
+			}
+		}
+
+		if (count($where) > 0)
+        {
+            $whereFiltro = implode("\n ", $where);
+        }
+		
+		$arrInfoHorario = $this->matricula_model->listarHorarioAluno($whereFiltro);
+		$arrCurso = $this->curso_model->listarCursos(1);
+		$arrAluno = $this->matricula_model->buscaAlunosMatriculados(1);
+		$arrInfoUnidade = $this->unidade_model->buscarUnidade();
+		
+		$arrDados = array(
+			'arrInfoHorario' => $arrInfoHorario,
+			'arrCurso' => $arrCurso,
+			'arrAluno' => $arrAluno,
+			'arrInfoUnidade' => $arrInfoUnidade
+		);
+
+		$this->load->view('matricula/lst_horario_view', $arrDados);
+	}
 }   

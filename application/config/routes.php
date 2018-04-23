@@ -116,8 +116,9 @@ $route['estagio/editar/(:any)/salvar'] = 'estagio/estagio/editarEstagio';
 $route['progresso/gerenciar'] = 'progresso/progresso/index';
 $route['progresso/ver/(:any)/(:any)'] = 'progresso/progresso/ver/$1/$2';
 $route['progresso/incluir'] = 'progresso/progresso/formIncluirProgresso';
-//$route['progresso/editar/(:any)'] = 'progresso/progresso/formEditarProgresso/$1';
 $route['progresso/incluir/salvar'] = 'progresso/progresso/incluirProgresso';
-//$route['progresso/editar/(:any)/salvar'] = 'progresso/progresso/editarProgresso';
 $route['progresso/editar/estagio_lancado'] = 'progresso/progresso/editarProgresso';
 $route['progresso/excluir/salvar'] = 'progresso/progresso/excluirProgresso';
+
+//HORARIO
+$route['horario/gerenciar'] = 'matricula/matricula/listarHorario';

@@ -3,6 +3,9 @@
     $arrCredencial = get_credencial();
 ?>
 
+    <!-- bootstrap select -->
+    <link href="<?php echo base_url('assets/css/bootstrap-select.min.css'); ?>" rel="stylesheet">
+
     <style type="text/css">
         input.error, textarea.error {
             background: #FAEDEC;
@@ -13,6 +16,14 @@
             color: #E74C3C;
         }
 
+        .buscaUsuarioCombo .btn-default{
+            background-color: #FFFFFF !important; 
+            color: #555 !important;
+        }
+
+        .btn dropdown-toggle btn-default bs-placeholder{
+            color: 555;
+        }
     </style>
 
 </head>
@@ -51,22 +62,41 @@
 
                             <?php echo Notificacao::getNotificacao(); ?>  
 
-                            <form name="frmIncluirUsuario" id="frmIncluirUsuario" action="<?php echo base_url('usuario/incluir/salvar'); ?>" method='post' class="form-horizontal">
+                            <form name="frmUsuario" id="frmUsuario" action="<?php echo base_url('usuario/incluir/salvar'); ?>" method='post' class="form-horizontal">
                                 <div class="box-body">
-                                    <div class="form-group">
-                                        <label for="txtNome" class="control-label col-md-3 col-sm-3 col-xs-12">Nome *</label>
-
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="text" id="txtNome" name="txtNome" class="form-control <?php echo (form_error('txtNome') ? 'erro_formulario' : ''); ?>" value="<?php echo set_value('txtNome'); ?>" >
-                                            <?php echo form_error('txtNome'); ?>
+                                    
+                                    <div class='form-group'>
+                                        <label for="sltTipoUsuario" class='control-label col-md-3 col-sm-3 col-xs-12'>Tipo Usuário *</label>
+                                        <div class='col-md-6 col-sm-6 col-xs-12'>
+                                            <select name="sltTipoUsuario" id="sltTipoUsuario" class="form-control">
+                                                 <option value="">Selecione</option>
+                                                <?php 
+                                                    foreach ($arrPerfil as $perfil) 
+                                                    {
+                                                        $repopular = set_select('sltTipoUsuario', $perfil['id_perfil']);
+                                                        echo "<option value='{$perfil['id_perfil']}' {$repopular}>{$perfil['perfil']}</option>";
+                                                    } 
+                                                ?>
+                                            </select>
                                         </div>
                                     </div>
 
+                                    <div class='form-group'>
+                                        <label for="sltNomeUsuario" class='control-label col-md-3 col-sm-3 col-xs-12'>Nome *</label>
+                                        <div class='col-md-6 col-sm-6 col-xs-12'>
+                                            <select name="sltNomeUsuario" id="sltNomeUsuario" class="form-control buscaUsuarioCombo" data-live-search="true">
+                                                <option value="">Selecione o tipo</option>
+                                            </select>
+
+                                            <input type="hidden" id="hddNomeUsuario" name="hddNomeUsuario" />
+                                        </div>
+                                    </div>  
+                                    
                                     <div class="form-group">
                                         <label for="txtEmail" class="control-label col-md-3 col-sm-3 col-xs-12">Email *</label>
 
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="email" id="txtEmail" name="txtEmail" class="form-control <?php echo (form_error('txtEmail') ? 'erro_formulario' : ''); ?>" value="<?php echo set_value('txtEmail'); ?>" >
+                                            <input type="email" id="txtEmail" name="txtEmail" class="form-control <?php echo (form_error('txtEmail') ? 'erro_formulario' : ''); ?>" value="<?php echo set_value('txtEmail'); ?>" readonly>
                                             <?php echo form_error('txtEmail'); ?>
                                         </div>
                                     </div>
@@ -93,33 +123,23 @@
                                         </div>
                                     </div>
 
-                                    <div class='form-group'>
+                                    <!-- <div class='form-group'>
                                         <label class='control-label col-md-3 col-sm-3 col-xs-12' for='first-name'>Perfil *</label>
                                         <div class='col-md-6 col-sm-6 col-xs-12'>
                                             <?php  
-                                                // foreach($arrPerfil as $perfil)
-                                                // {
-                                                //     $repopular = set_checkbox('chkPerfil[]', $perfil['id_perfil']);
-
-                                                //     echo "<div class='div-checkbox'>";
-                                                //     echo " <label><input type='checkbox' name='chkPerfil[]' id='chkPerfil[]' value='{$perfil['id_perfil']}' class='flat' {$repopular}> {$perfil['perfil']}</label>";
-                                                //     echo "</div>";
-                                                // }
-
-                                                // echo "<label class='error' for='chkPerfil[]' style='display: none;'></label>";
-                                                // echo form_error('chkPerfil[]');	
-                                                foreach($arrPerfil as $perfil)
+           
+                                                /* foreach($arrPerfil as $perfil)
                                                 {
                                                     $repopular = set_radio('rdoPerfil', $perfil['id_perfil']);
                                                     echo "<label><input type='radio' class='flat' name='rdoPerfil' value='{$perfil['id_perfil']}' {$repopular}> {$perfil['perfil']}</label><br />";
                                                     
                                                 }
                                                 echo "<label class='error' for='rdoPerfil' style='display: none;'></label>";
-                                                echo form_error('rdoPerfil');
+                                                echo form_error('rdoPerfil'); */
                                       
                                             ?>
                                         </div>
-                                    </div>
+                                    </div> -->
 
                                     <div class='form-group'>
                                         <label class='control-label col-md-3 col-sm-3 col-xs-12' for='first-name'>Status</label>
@@ -154,63 +174,57 @@
 
     <!--jquery.validate (validacao formulario)-->
     <script src="<?php echo base_url('assets/js/jquery.validate.min.js'); ?>"></script>
+    <!-- bootstrap select -->
+    <script src="<?php echo base_url('assets/js/bootstrap-select.min.js'); ?>"></script>
+    <!-- bootstrap select traducao-->
+    <script src="<?php echo base_url('assets/js/i18n/defaults-pt_BR.min.js'); ?>"></script>
+    <!--regras usuario-->
+    <script src="<?php echo base_url('assets/js/usuario.js'); ?>"></script>
 
     <script>
         $(function() {
 
+            /* $('.buscaUsuarioCombo').selectpicker();
+
             $('#txtUsuario').keyup(function(){
                 $(this).val($(this).val().toLowerCase());
-            });
+            }); */
+            
+            //exibe combo de nome usuario (aluno/auxiliar) de acordo com o tipo de usuario
+            $("#sltTipoUsuario").change(function () {
+                var idTipoUsuario = $(this).val();
 
-            /* $.validator.addMethod("regx", function(value, regexpr) {          
-                return regexpr.test(value);
-            }, "Senha fora do padrão. Letras e números são obrigatórios teste."); */
+                $.post(
+                    "<?php echo base_url() ?>ajax/usuarioAjax/buscaUsuarioSistema",
+                    { idTipoUsuario: idTipoUsuario },
+                    function (usuarios) {
+                        $("#sltNomeUsuario").html(usuarios);
+                        $("#sltNomeUsuario").selectpicker('refresh');
+                        $("#txtEmail").val('');
+                        $("#hddNomeUsuario").val('');
+                    }
+                );
+            });   
 
-            //VALIDACAO FORMULARIO
-            $('#frmIncluirUsuario').validate({
-                rules: {
-                    txtNome: {
-                        required: true,
-                        minlength: 2
-                    },
-                    txtEmail: {
-                        required: true,
-                        email: true
-                    },
-                    txtUsuario: {
-                        required: true,
-                        minlength: 3
-                    },
-                    pwdSenha: {
-                        required: true,
-                        minlength: 5
-                    },
-                    rdoPerfil: { 
-                        required: true
-                    }
-                },
-                messages: {
-                    txtNome: {
-                        required: "O campo Nome é obrigatório",
-                        minlength: "O campo Nome deve conter no mínimo 2 caracteres."
-                    },
-                    txtEmail: {
-                        required: "O campo Email é obrigatório.",
-                        email: "Informe um email válido."
-                    },
-                    txtUsuario: {
-                        required: "O campo Usuário é obrigatório",
-                        minlength: "O campo Usuário deve conter no mínimo 3 caracteres."
-                    },
-                    pwdSenha: {
-                        required: "O campo Senha é obrigatório",
-                        minlength: "O campo Senha deve conter no mínimo 5 caracteres."
-                    },
-                    rdoPerfil: {
-                        required: "O campo Perfil é obrigatório."
-                    }
-                }
-            });
+            //exibe o email do usuario sistema selecionado
+            $("#sltNomeUsuario").change(function(){
+                var idUsuarioSistema = $(this).val();
+                var idTipoUsuario = $("#sltTipoUsuario").val();
+                var nomeUsuario = $('#sltNomeUsuario :selected').text();
+          
+                $.post(
+                    "<?php echo base_url() ?>ajax/usuarioAjax/buscaEmailUsuarioSistema", 
+                    { 
+                        idUsuarioSistema: idUsuarioSistema,
+                        idTipoUsuario: idTipoUsuario
+                    }, 
+                    function(infoUsuario){
+                        $("#txtEmail").val(infoUsuario.email);
+                        $("#hddNomeUsuario").val(nomeUsuario);
+                    }, 'json'
+                );
+            });		
+
         });
     </script>
 

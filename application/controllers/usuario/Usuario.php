@@ -53,11 +53,11 @@ class Usuario extends CI_Controller {
 		{
 			$arrPost = $this->input->post();
 
-			$this->form_validation->set_rules('txtNome', 'Nome', 'trim|required|min_length[2]');
+			$this->form_validation->set_rules('sltTipoUsuario', 'Tipo Usuário', 'trim|required');
+			$this->form_validation->set_rules('sltNomeUsuario', 'Nome', 'trim|required');
 			$this->form_validation->set_rules('txtEmail', 'Email', 'trim|required|valid_email');
 			$this->form_validation->set_rules('txtUsuario', 'Usuário', 'trim|required|alpha_numeric|is_unique[usuario.usuario]');
 			$this->form_validation->set_rules('pwdSenha', 'Senha', 'trim|required|callback_verifica_senha');
-			$this->form_validation->set_rules('rdoPerfil', 'Perfil', 'required');
 			
 			$this->form_validation->set_error_delimiters("<p style='color: #E74C3C; font-weight: bold;'>", "</p>");
 
@@ -70,7 +70,7 @@ class Usuario extends CI_Controller {
 				$this->db->trans_begin();
 
 				$arrInfoUsuario = array(
-					'nome_usuario' => mb_strtoupper(trim($arrPost['txtNome'])),
+					'nome_usuario' => mb_strtoupper(trim($arrPost['hddNomeUsuario'])),
 					'email' => strtolower(trim($arrPost['txtEmail'])),
 					'usuario' => strtolower(trim($arrPost['txtUsuario'])),
 					'senha' => md5(trim(SALT_SENHA . $arrPost['pwdSenha'])),
@@ -83,7 +83,7 @@ class Usuario extends CI_Controller {
 
 				$arrInfoPerfil = array(
 					'id_usuario' => $idUsuario,
-					'id_perfil' => $arrPost['rdoPerfil']
+					'id_perfil' => $arrPost['sltTipoUsuario']
 				);
 
 				$this->perfil_model->incluirPerfil($arrInfoPerfil);
@@ -152,10 +152,7 @@ class Usuario extends CI_Controller {
 
 			$idUsuarioDescrip = base64_decode(urldecode($arrPost['hddIdUsuario']));
 
-			$this->form_validation->set_rules('txtNome', 'Nome', 'trim|required|min_length[2]');
-			$this->form_validation->set_rules('txtEmail', 'Email', 'trim|required|valid_email');
 			$this->form_validation->set_rules('txtUsuario', 'Usuário', 'trim|required|alpha_numeric');
-			$this->form_validation->set_rules('rdoPerfil', 'Perfil', 'required');
 		
 			if($arrPost['hddUsuario'] != trim($arrPost['txtUsuario']))
 			{
@@ -178,8 +175,6 @@ class Usuario extends CI_Controller {
 				$this->db->trans_begin();	
 
 				$arrInfoUsuario = array(
-					'nome_usuario' => mb_strtoupper(trim($arrPost['txtNome'])),
-					'email' => strtolower(trim($arrPost['txtEmail'])),
 					'usuario' => strtolower(trim($arrPost['txtUsuario'])),
 					'ativo' => $arrPost['rdoStatusUsuario'],
 					'data_alteracao' => date('Y-m-d H:i:s'),
@@ -194,14 +189,14 @@ class Usuario extends CI_Controller {
 				$this->usuario_model->editarUsuario($arrInfoUsuario, $idUsuarioDescrip);
 
 				//excluir todos os perfis para inserir novamente
-				$this->perfil_model->excluirPerfil($idUsuarioDescrip);
+				/* $this->perfil_model->excluirPerfil($idUsuarioDescrip);
 
 				$arrInfoPerfil = array(
 					'id_usuario' => $idUsuarioDescrip,
 					'id_perfil' => $arrPost['rdoPerfil']
 				);
 
-				$this->perfil_model->incluirPerfil($arrInfoPerfil);
+				$this->perfil_model->incluirPerfil($arrInfoPerfil); */
 	
 				if ($this->db->trans_status() === FALSE)
 				{

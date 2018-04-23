@@ -46,9 +46,9 @@
                         
                         <!-- Menu Footer-->
                         <li class="user-footer">
-                            <div class="pull-left">
+                            <!-- <div class="pull-left">
                                 <a href="#" class="btn btn-default btn-flat">Configuração</a>
-                            </div>
+                            </div> -->
                             <div class="pull-right">
                                 <a href="<?php echo base_url('login/logout'); ?>" class="btn btn-default btn-flat">Sair</a>
                             </div>
@@ -66,13 +66,35 @@
     <section class="sidebar">
         <ul class="sidebar-menu" data-widget="tree">
             <li class="header">Menu</li>
+
+          
             <li <?php echo $this->uri->segment(1) == 'home' ? "class='active'" : "" ?>><a href="<?php echo base_url('home'); ?>"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
-            <li <?php echo $this->uri->segment(1) == 'unidade' ? "class='active'" : "" ?>><a href="<?php echo base_url('unidade/editar'); ?>"><i class="fa fa-home"></i> <span>Unidade</span></a></li>
-            <li <?php echo $this->uri->segment(1) == 'pessoa' ? "class='active'" : "" ?>><a href="<?php echo base_url('pessoa/gerenciar'); ?>"><i class="fa fa-graduation-cap"></i> <span>Pessoa</span></a></li>
-            <li <?php echo $this->uri->segment(1) == 'aluno' ? "class='active'" : "" ?>><a href="<?php echo base_url('aluno/gerenciar');?>"><i class="fa fa-user"></i> <span>Aluno</span></a></li>
-            <li <?php echo $this->uri->segment(1) == 'matricula' ? "class='active'" : "" ?>><a href="<?php echo base_url('matricula/gerenciar');?>"><i class="fa fa-book"></i> <span>Matrícula</span></a></li>
-            <li <?php echo $this->uri->segment(1) == 'progresso' ? "class='active'" : "" ?>><a href="<?php echo base_url('progresso/gerenciar');?>"><i class="fa fa-edit"></i> <span>Progresso Estudo</span></a></li>
-            <li class="treeview">
+            
+            <?php if(!in_array('aluno', $arrPerfilNome)): ?>
+                <li <?php echo $this->uri->segment(1) == 'unidade' ? "class='active'" : "" ?>><a href="<?php echo base_url('unidade/editar'); ?>"><i class="fa fa-home"></i> <span>Unidade</span></a></li>
+            <?php endif; ?>
+            
+           <?php if(!in_array('aluno', $arrPerfilNome)): ?>
+                <li <?php echo $this->uri->segment(1) == 'pessoa' ? "class='active'" : "" ?>><a href="<?php echo base_url('pessoa/gerenciar'); ?>"><i class="fa fa-graduation-cap"></i> <span>Pessoa</span></a></li>
+            <?php endif; ?>
+
+            <?php if(!in_array('aluno', $arrPerfilNome)): ?>
+                <li <?php echo $this->uri->segment(1) == 'aluno' ? "class='active'" : "" ?>><a href="<?php echo base_url('aluno/gerenciar');?>"><i class="fa fa-user"></i> <span>Aluno</span></a></li>
+            <?php endif; ?>
+
+            <?php if(!in_array('aluno', $arrPerfilNome)): ?>
+                <li <?php echo $this->uri->segment(1) == 'matricula' ? "class='active'" : "" ?>><a href="<?php echo base_url('matricula/gerenciar');?>"><i class="fa fa-book"></i> <span>Matrícula</span></a></li>
+            <?php endif; ?>
+
+            <?php if(!in_array('aluno', $arrPerfilNome)): ?>
+                <li <?php echo $this->uri->segment(1) == 'progresso' ? "class='active'" : "" ?>><a href="<?php echo base_url('progresso/gerenciar');?>"><i class="fa fa-edit"></i> <span>Progresso Estudo</span></a></li>
+            <?php endif; ?>
+
+            <?php if(!in_array('aluno', $arrPerfilNome)): ?>
+                <li <?php echo $this->uri->segment(1) == 'horario' ? "class='active'" : "" ?>><a href="<?php echo base_url('horario/gerenciar');?>"><i class="fa fa-clock-o"></i> <span>Horários</span></a></li>
+            <?php endif; ?>
+             
+            <li class="treeview <?php echo $this->uri->segment(1) == 'relatorio' ? "class=' active menu-open'" : "" ?>">
                 <a>
                     <i class="fa fa-pie-chart"></i> <span>Relatórios</span>
                     <span class="pull-right-container">
@@ -83,7 +105,12 @@
                     <li><a href="<?php echo base_url('relatorio/gerenciar');?>"><i class="fa fa-circle-o"></i> Histórico estudo</a></li>
                 </ul>
             </li>
-            <li <?php echo $this->uri->segment(1) == 'usuario' ? "class='active'" : "" ?>><a href="<?php echo base_url('usuario/gerenciar');?>"><i class="fa fa-users"></i> <span>Usuário Sistema</span></a></li>
+           
+            <?php //if(in_array('implementador', $arrPerfilNome)  || in_array('orientador', $arrPerfilNome) || in_array('auxiliar', $arrPerfilNome)): ?>
+            <?php if(!in_array('aluno', $arrPerfilNome)): ?>
+                <li <?php echo $this->uri->segment(1) == 'usuario' ? "class='active'" : "" ?>><a href="<?php echo base_url('usuario/gerenciar');?>"><i class="fa fa-users"></i> <span>Usuário Sistema</span></a></li>
+            <?php endif; ?>
+
         </ul>
         <!-- sidebar menu: : style can be found in sidebar.less -->
     </section>

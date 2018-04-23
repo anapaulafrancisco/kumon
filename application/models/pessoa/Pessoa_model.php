@@ -94,4 +94,55 @@ class Pessoa_model extends CI_Model {
 		$this->db->where('id_pessoa', $idPessoa);
 		$this->db->update('pessoa', $arrInfoPessoa);
 	}
+
+	//-----------------------------------------------------------
+
+	/**
+	 * Funcao responsavel retornar o total de usuario tipo auxiliar ativo
+	 *
+	 * @param [type] $anoAtual
+	 * @return void
+	 */
+	public function buscaTotalAuxiliarAtivo()
+	{
+		$this->db->where('tipo', 'auxiliar'); 
+		$this->db->where('ativo', 1); 
+		$this->db->select("COUNT(id_pessoa) AS total_auxiliar_ativo");
+		$result = $this->db->get('pessoa');
+		
+		if (is_object($result) && $result->num_rows() > 0)
+        {
+            return $result->row_array();
+        }
+        else
+        {
+            return array();
+        }
+	}
+
+	//-----------------------------------------------------------
+
+	/**
+	 * Funcao responsavel retornar as pessoas de acordo com o tipo
+	 *
+	 * @param [type] $anoAtual
+	 * @return void
+	 */
+	public function listarPessoaPorTipo($tipoPessoa)
+	{
+		$this->db->order_by("nome_pessoa", "asc");
+		$this->db->where('tipo', $tipoPessoa); 
+		$this->db->where('ativo', 1); 
+		$result = $this->db->get('pessoa');
+		
+		if (is_object($result) && $result->num_rows() > 0)
+        {
+            return $result->result_array();
+        }
+        else
+        {
+            return array();
+        }
+	}
+	
 }

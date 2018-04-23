@@ -59,25 +59,20 @@
                                 <div class="box-body">
                                     <div class="form-group">
                                         <label for="txtNome" class="control-label col-md-3 col-sm-3 col-xs-12">Nome *</label>
-
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="text" id="txtNome" name="txtNome" class="form-control <?php echo (form_error('txtNome') ? 'erro_formulario' : ''); ?>" value="<?php echo set_value('txtNome', $arrUsuario['nome_usuario']); ?>" >
-                                            <?php echo form_error('txtNome'); ?>
+                                            <input type="text" class="form-control" disabled="disabled" value="<?php echo $arrUsuario['nome_usuario']; ?>">
                                         </div>
                                     </div>
 
                                     <div class="form-group">
                                         <label for="txtEmail" class="control-label col-md-3 col-sm-3 col-xs-12">Email *</label>
-
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="email" id="txtEmail" name="txtEmail" class="form-control <?php echo (form_error('txtEmail') ? 'erro_formulario' : ''); ?>" value="<?php echo set_value('txtEmail', $arrUsuario['email']); ?>" >
-                                            <?php echo form_error('txtEmail'); ?>
+                                            <input type="text" class="form-control" disabled="disabled" value="<?php echo $arrUsuario['email']; ?>">
                                         </div>
                                     </div>
 
                                     <div class="form-group">
                                         <label for="txtUsuario" class="control-label col-md-3 col-sm-3 col-xs-12">Usuário *</label>
-
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <input type="text" id="txtUsuario" name="txtUsuario" class="form-control <?php echo (form_error('txtUsuario') ? 'erro_formulario' : ''); ?>" value="<?php echo set_value('txtUsuario', $arrUsuario['usuario']); ?>" >
                                             <input type="hidden" name="hddUsuario" value="<?php echo $arrUsuario['usuario']; ?>" >
@@ -98,23 +93,12 @@
                                         </div>
                                     </div>
 
-                                    <?php if($arrUsuario['perfis_ids'] > 2) : ?>
-                                        <div class='form-group'>
-                                            <label class='control-label col-md-3 col-sm-3 col-xs-12' for='first-name'>Perfil </label>
-                                            <div class='col-md-6 col-sm-6 col-xs-12'>
-                                                <?php  
-                                                    foreach($arrPerfil as $perfil)
-                                                    {
-                                                        $perfilSelecionado = (int)$perfil['id_perfil'] == $arrUsuario['perfis_ids'] ? "checked='checked'" : '';
-                                                        echo "<label><input type='radio' class='flat' name='rdoPerfil' value='{$perfil['id_perfil']}' {$perfilSelecionado}> {$perfil['perfil']}</label><br />";
-                                                        
-                                                    }
-                                                    echo "<label class='error' for='rdoPerfil' style='display: none;'></label>";
-                                                    echo form_error('rdoPerfil');
-                                                ?>
-                                            </div>
+                                    <div class='form-group'>
+                                        <label class='control-label col-md-3 col-sm-3 col-xs-12' for='first-name'>Perfil </label>
+                                        <div class='col-md-6 col-sm-6 col-xs-12'>
+                                            <input type="text" class="form-control" disabled="disabled" value="<?php echo $arrUsuario['perfis']; ?>">
                                         </div>
-                                    <?php endif; ?>
+                                    </div>
 
                                     <div class='form-group'>
                                         <label class='control-label col-md-3 col-sm-3 col-xs-12' for='first-name'>Status</label>

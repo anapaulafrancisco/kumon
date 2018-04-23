@@ -118,4 +118,28 @@ class Aluno_model extends CI_Model {
 		$this->db->where('id_aluno', $idAlunoDescrip);
 		$this->db->update('aluno', $arrInfoAluno);
 	}
+
+	//-----------------------------------------------------------
+
+	/**
+	 * Funcao responsavel por buscar o ID ALUNO pelo email
+	 *
+	 * @param [type] $email
+	 * @return void
+	 */
+	public function buscaIDAlunoPorEmail($email)
+	{
+		$this->db->where('email', $email); 
+		$this->db->select("id_aluno");
+		$result = $this->db->get('aluno');
+
+		if (is_object($result) && $result->num_rows() > 0)
+        {
+            return $result->row_array();
+        }
+        else
+        {
+            return array();
+        }
+	}
 }

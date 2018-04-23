@@ -21,7 +21,7 @@ class Matricula_model extends CI_Model {
 		$where = '';
 		if(!empty($ativo))
 		{
-			$where = "AND m.ativo = {$ativo}";
+			$where = "WHERE m.ativo = {$ativo}";
 		}
 
 		$result = $this->db->query("SELECT
@@ -181,7 +181,7 @@ class Matricula_model extends CI_Model {
 	 * @param [type] $idCurso
 	 * @return void
 	 */
-	function verificaMatriculaAluno($idAluno, $idCurso)
+	public function verificaMatriculaAluno($idAluno, $idCurso)
 	{
 		$result = $this->db->query("SELECT
 										m.id_matricula,
@@ -207,4 +207,223 @@ class Matricula_model extends CI_Model {
             return array();
         }
 	}
+
+	//-----------------------------------------------------------
+
+	/**
+	 * Funcao responsavel retornar o total de matricula inativa do ano
+	 *
+	 * @param [type] $anoAtual
+	 * @return void
+	 */
+	public function buscaTotalMatriculaInativa($anoAtual)
+	{
+		$this->db->where('YEAR(data_inativo)', $anoAtual); 
+		$this->db->where('ativo', 0); 
+		$this->db->select("COUNT(id_matricula) AS total_inativa");
+		$result = $this->db->get('matricula');
+
+		if (is_object($result) && $result->num_rows() > 0)
+        {
+            return $result->row_array();
+        }
+        else
+        {
+            return array();
+        }
+	}
+
+	//-----------------------------------------------------------
+
+	/**
+	 * Funcao responsavel por listar matriculas ativas e inativas durante os ultimos 12 meses
+	 *
+	 * @param [type] $periodo
+	 * @return void
+	 */
+	public function relatorioAtivoInativo($periodo)
+	{
+		$this->db->query("SET lc_time_names = 'pt_BR'");
+		$result = $this->db->query("SELECT
+										DATE_FORMAT(data_matricula, '%b') AS mes,	
+										SUM(
+											CASE 
+												WHEN ativo = 1 THEN 1
+												ELSE 0
+											END	
+										) AS total_ativo,
+										SUM(
+											CASE WHEN ativo = 0 THEN 1
+												ELSE 0
+											END	
+										) AS total_inativo									
+									FROM
+										matricula
+									WHERE
+										data_matricula >= '{$periodo}' 		
+									GROUP BY	
+										DATE_FORMAT(data_matricula, '%Y-%m') 
+									ORDER BY
+										data_matricula");
+
+        if (is_object($result) && $result->num_rows() > 0)
+        {
+            return $result->result_array();
+        }
+        else
+        {
+            return array();
+        }
+	}
+
+	//-----------------------------------------------------------
+
+	/**
+	 * Funcao responsavel por buscar os cursos que o aluno eh matriculado
+	 *
+	 * @param [type] $idAluno
+	 * @return void
+	 */
+	public function buscaCursoAluno($idAluno)
+	{
+		$result = $this->db->query("SELECT
+										a.id_aluno,
+										a.nome_aluno,
+										c.id_curso,
+										c.nome_curso
+									FROM
+										matricula m
+										JOIN estagio e ON (e.id_estagio = m.id_estagio)
+										JOIN curso c ON (c.id_curso = e.id_curso)
+										JOIN aluno a ON (a.id_aluno = m.id_aluno)
+									WHERE
+										m.id_aluno = {$idAluno}");
+
+		if (is_object($result) && $result->num_rows() > 0)
+        {
+            return $result->result_array();
+        }
+        else
+        {
+            return array();
+        }
+	}
+
+	//-----------------------------------------------------------
+
+	/**
+	 * Funcao responsavel por buscar informacoes da matricula do aluno - exibidas no dashboard
+	 *
+	 * @param [type] $idAluno
+	 * @return void
+	 */
+	public function buscaInfoMatriculaAluno($idAluno)
+	{
+		$result = $this->db->query("SELECT
+										a.nome_aluno,
+										s.nivel,
+										s.nome_serie,
+										c.nome_curso,
+										DATE_FORMAT(m.data_matricula,'%d/%m/%Y') AS data_matricula_formatada,
+										GROUP_CONCAT(DISTINCT mt.dia_aula, ' - ', TIME_FORMAT(mt.horario_aula, '%H:%i') ORDER BY mt.id_matricula_turma SEPARATOR ') (') AS dia_hora_aula	
+									FROM
+										matricula m
+										JOIN aluno a ON (a.id_aluno = m.id_aluno)
+										JOIN serie s ON (s.id_serie = a.id_serie)
+										JOIN estagio e ON (e.id_estagio = m.id_estagio)
+										JOIN curso c ON (c.id_curso = e.id_curso)
+										JOIN matricula_turma mt ON (mt.id_matricula = m.id_matricula)
+									WHERE	
+										m.id_aluno = {$idAluno}
+									AND
+										m.ativo = 1	
+									GROUP BY
+										m.id_matricula
+									ORDER BY
+										m.data_matricula DESC");
+
+		if (is_object($result) && $result->num_rows() > 0)
+        {
+            return $result->result_array();
+        }
+        else
+        {
+            return array();
+        }
+	}
+
+	//-----------------------------------------------------------
+
+	/**
+	 * Funcao responsavel por buscar informacoes da matricula de acordo com o filtro
+	 *
+	 * @param string $whereFiltro
+	 * @return void
+	 */
+	public function listarHorarioAluno($whereFiltro = '')
+	{
+		$filtrar = empty($whereFiltro) ? '' : $whereFiltro;
+
+		$result = $this->db->query("SELECT
+										c.id_curso,
+										c.nome_curso,
+										a.nome_aluno,
+										GROUP_CONCAT(DISTINCT mt.dia_aula, ' - ', TIME_FORMAT(mt.horario_aula, '%H:%i') ORDER BY
+										mt.id_matricula_turma SEPARATOR ') (') AS dia_hora_aula	
+									FROM
+										matricula m
+										JOIN aluno a ON (a.id_aluno = m.id_aluno)
+										JOIN estagio e ON (e.id_estagio = m.id_estagio)
+										JOIN curso c ON (c.id_curso = e.id_curso)
+										JOIN matricula_turma mt ON (mt.id_matricula = m.id_matricula)
+									WHERE
+										m.ativo = 1
+									{$filtrar}	
+									GROUP BY
+										m.id_matricula
+									ORDER BY
+										c.nome_curso, a.nome_aluno");
+	
+		if (is_object($result) && $result->num_rows() > 0)
+        {
+            return $result->result_array();
+        }
+        else
+        {
+            return array();
+        }
+	}
+
+	//-----------------------------------------------------------
+
+	/**
+	 * Funcao responsavel por buscar os alunos matriculados
+	 *
+	 * @return void
+	 */
+	public function buscaAlunosMatriculados($ativo = '')
+	{
+		$where = '';
+		if(!empty($ativo))
+		{
+			$where = "WHERE m.ativo = {$ativo}";
+		}
+
+		$result = $this->db->query("SELECT
+										DISTINCT (a.id_aluno),
+										a.nome_aluno
+									FROM
+										matricula m
+										JOIN aluno a ON (a.id_aluno = m.id_aluno)
+									{$where}");
+
+		if (is_object($result) && $result->num_rows() > 0)
+        {
+            return $result->result_array();
+        }
+        else
+        {
+            return array();
+		}							
+	}							
 }

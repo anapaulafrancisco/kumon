@@ -33,11 +33,25 @@ class Relatorio extends CI_Controller {
 			$this->session->unset_userdata('post_filtro');
 		}
 
-        $arrCurso = $this->curso_model->listarCursos(1);
+		$arrCurso = $this->curso_model->listarCursos(1);
 		
 		$arrDados = array(
-			'arrCurso' => $arrCurso, 
+			'arrCurso' => $arrCurso 
 		);
+
+		//se for aluno
+		if($this->credencial['perfis_nomes'] == 'aluno')
+		{
+			//busca aluno ID pelo email do usuario logado
+			$arrIdAluno = $this->aluno_model->buscaIDAlunoPorEmail($this->credencial['email']);
+
+			//busca os cursos do aluno
+			$arrCurso = $this->matricula_model->buscaCursoAluno($arrIdAluno['id_aluno']);
+
+			$arrDados = array(
+				'arrCurso' => $arrCurso
+			);	
+		}
 
 		$arrDados['arrInfoRelFolhaMes'] = array();
 		$arrDados['arrInfoAluno'] = array();
@@ -53,7 +67,7 @@ class Relatorio extends CI_Controller {
 			{
 				$this->session->set_userdata(array('post_filtro' => $arrPost));	
 	
-				$arrInfoAluno = $this->aluno_model->buscaAlunoCurso($arrPost['sltCurso']); //detalhe essa funcao pode estar na matricula model
+				$arrInfoAluno = $this->aluno_model->buscaAlunoCurso($arrPost['sltCurso']);
 				
 				$arrInfoMatricula = $this->matricula_model->verificaMatriculaAluno($arrPost['sltAluno'], $arrPost['sltCurso']);
 				$arrMatriculaTurma = $this->matricula_model->buscarMatriculaTurma($arrInfoMatricula['id_matricula']);

@@ -58,6 +58,7 @@
 
                             <form name="frmAluno" id="frmAluno" action="<?php echo base_url('aluno/incluir/salvar'); ?>" method='post' class="form-horizontal">
                                 <div class="box-body">
+                                    
                                     <div class="form-group">
                                         <label for="txtNome" class="control-label col-md-3 col-sm-3 col-xs-12">Nome *</label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
