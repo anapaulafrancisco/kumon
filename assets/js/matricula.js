@@ -50,9 +50,6 @@ $(function () {
             sltEstagio: {
                 required: true
             },
-            txtIdentAluno: {
-                required: true
-            },
             txtDataMatricula: {
                 required: true,
                 dateBR: true
@@ -88,9 +85,6 @@ $(function () {
             },
             sltEstagio: {
                 required: "O campo Estágio é obrigatório."
-            },
-            txtIdentAluno: {
-                required: "O campo Identificador aluno é obrigatório."
             },
             txtDataMatricula: {
                 required: "O campo Data Matrícula é obrigatório."

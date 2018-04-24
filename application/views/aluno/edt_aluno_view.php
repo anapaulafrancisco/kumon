@@ -63,6 +63,15 @@
                                 <input type="hidden" name="hddIdAluno" value="<?php echo $idAluno; ?>">
                                 <div class="box-body">
                                     <div class="form-group">
+                                        <label for="txtIdentAluno" class="control-label col-md-3 col-sm-3 col-xs-12">Identificador Aluno *</label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type="text" id="txtIdentAluno" name="txtIdentAluno" class="form-control <?php echo (form_error('txtIdentAluno') ? 'erro_formulario' : ''); ?>" value="<?php echo set_value('txtIdentAluno', $arrAluno['identificador_aluno']); ?>" >
+                                             <input type="hidden" name="hddIdentAluno" value="<?php echo $arrAluno['identificador_aluno']; ?>" >
+                                            <?php echo form_error('txtIdentAluno'); ?>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
                                         <label for="txtNome" class="control-label col-md-3 col-sm-3 col-xs-12">Nome *</label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <input type="text" name="txtNome" id="txtNome" class="form-control <?php echo (form_error('txtNome') ? 'erro_formulario' : ''); ?>" value="<?php echo set_value('txtNome', $arrAluno['nome_aluno']); ?>">
@@ -83,6 +92,7 @@
                                         <label for="txtCPF"  class='control-label col-md-3 col-sm-3 col-xs-12'>CPF *</label>
                                         <div class='col-md-6 col-sm-6 col-xs-12'>
                                             <input type="text" name="txtCPF" id="txtCPF" class="form-control <?php echo (form_error('txtCPF') ? 'erro_formulario' : ''); ?>" value="<?php echo set_value('txtCPF', $arrAluno['cpf']); ?>">
+                                            <input type="hidden" name="hddCPF" value="<?php echo $arrAluno['cpf']; ?>" >
                                             <?php echo form_error('txtCPF'); ?>
                                         </div>
                                     </div>

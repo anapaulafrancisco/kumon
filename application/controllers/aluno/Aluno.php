@@ -80,12 +80,13 @@ class Aluno extends CI_Controller {
 			
 			$this->form_validation->set_rules('txtNome', 'Nome', 'trim|required|min_length[2]');
 			$this->form_validation->set_rules('txtCPF', 'CPF', 'trim|required|is_unique[aluno.cpf]');
+			$this->form_validation->set_rules('txtIdentAluno', 'Identificador Aluno', 'trim|required|is_unique[aluno.identificador_aluno]');
 			
 			$this->form_validation->set_error_delimiters("<p style='color: #E74C3C;'>", "</p>");
 
 			if ($this->form_validation->run() == FALSE)
 			{
-				$this->load->view('aluno/frm_incluir_aluno_view');
+				$this->formIncluirAluno();
 			}
 			else
 			{
@@ -97,6 +98,7 @@ class Aluno extends CI_Controller {
 				}
 
 				$arrInfoAluno = array(
+					'identificador_aluno' => $arrPost['txtIdentAluno'],
 					'nome_aluno' => mb_strtoupper(trim($arrPost['txtNome'])), 
 					'email' => strtolower(trim($arrPost['txtEmail'])),
 					'cpf' => trim($arrPost['txtCPF']),
@@ -168,11 +170,21 @@ class Aluno extends CI_Controller {
 
 			$this->form_validation->set_rules('txtNome', 'Nome', 'trim|required|min_length[2]');
 
+			if($arrPost['hddIdentAluno'] != trim($arrPost['txtIdentAluno']))
+			{
+				$this->form_validation->set_rules('txtIdentAluno', 'Identificador Aluno', 'trim|required|is_unique[aluno.identificador_aluno]');
+			}
+
+			if($arrPost['hddCPF'] != trim($arrPost['txtCPF']))
+			{
+				$this->form_validation->set_rules('txtCPF', 'CPF', 'trim|required|is_unique[aluno.cpf]');
+			}
+
 			$this->form_validation->set_error_delimiters("<p style='color: #E74C3C;'>", "</p>");
 
 			if ($this->form_validation->run() == FALSE)
 			{
-				$this->load->view('aluno/edt_aluno_view');
+				$this->formEditarAluno($arrPost['hddIdAluno']);
 			}
 			else
 			{
@@ -184,6 +196,7 @@ class Aluno extends CI_Controller {
 				}
 
 				$arrInfoAluno = array(
+					'identificador_aluno' => $arrPost['txtIdentAluno'],
 					'nome_aluno' => mb_strtoupper(trim($arrPost['txtNome'])), 
 					'email' => strtolower(trim($arrPost['txtEmail'])),
 					'cpf' => trim($arrPost['txtCPF']),

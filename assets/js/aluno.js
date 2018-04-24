@@ -141,6 +141,9 @@ $(function () {
     //VALIDACAO FORMULARIO
     $('#frmAluno').validate({
         rules: {
+            txtIdentAluno: {
+                required: true
+            },
             txtNome: {
                 required: true,
                 minlength: 2
@@ -184,6 +187,9 @@ $(function () {
             }
         },
         messages: {
+            txtIdentAluno: {
+                required: "O campo Identificador aluno é obrigatório."
+            },
             txtNome: {
                 required: "O campo Nome é obrigatório.",
                 minlength: "O campo Nome deve conter no mínimo 2 caracteres."

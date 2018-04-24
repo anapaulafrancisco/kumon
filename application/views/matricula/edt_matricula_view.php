@@ -104,14 +104,6 @@
                                         </div>
                                     </div>
                                 
-                                    <div class="form-group">
-                                        <label for="txtIdentAluno" class="control-label col-md-3 col-sm-3 col-xs-12">Identificador Aluno *</label>
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="text" id="txtIdentAluno" name="txtIdentAluno" class="form-control <?php echo (form_error('txtIdentAluno') ? 'erro_formulario' : ''); ?>" value="<?php echo set_value('txtIdentAluno', $arrMatricula['identificador_aluno']); ?>" >
-                                            <?php echo form_error('txtIdentAluno'); ?>
-                                        </div>
-                                    </div>
-
                                     <?php 
                                         $arrDiaHoraSelecionado = array();
 

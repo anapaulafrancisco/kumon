@@ -150,7 +150,6 @@ class Matricula extends CI_Controller {
 
 				$arrInfoMatricula = array(
 					'id_aluno' => $arrPost['sltAluno'], 
-					'identificador_aluno' => $arrPost['txtIdentAluno'],
 					'id_estagio' => $arrPost['sltEstagio'],
 					'data_matricula' => implode("-", array_reverse(explode("/", $arrPost['txtDataMatricula']))),
 					'ativo' => $arrPost['rdoStatusMatricula'],
@@ -251,7 +250,7 @@ class Matricula extends CI_Controller {
 			
 			$idMatriculaDescrip = base64_decode(urldecode($arrPost['hddIdMatricula']));
 
-			$this->form_validation->set_rules('txtIdentAluno', 'Identificador Aluno', 'trim|required');
+			$this->form_validation->set_rules('sltCurso', 'Curso', 'required');
 
 			$this->form_validation->set_error_delimiters("<p style='color: #E74C3C;'>", "</p>");
 
@@ -268,7 +267,6 @@ class Matricula extends CI_Controller {
 				}
 				$arrInfoMatricula = array(	
 					'id_estagio' => $arrPost['sltEstagio'],
-					'identificador_aluno' => $arrPost['txtIdentAluno'],
 					'data_matricula' => implode("-", array_reverse(explode("/", $arrPost['txtDataMatricula']))),
 					'ativo' => $arrPost['rdoStatusMatricula'],
 					'data_inativo' => $dataInativo,
