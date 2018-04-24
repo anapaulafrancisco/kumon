@@ -202,6 +202,7 @@
                         $("#sltNomeUsuario").selectpicker('refresh');
                         $("#txtEmail").val('');
                         $("#hddNomeUsuario").val('');
+                        $("#txtUsuario").val('');
                     }
                 );
             });   
@@ -221,6 +222,7 @@
                     function(infoUsuario){
                         $("#txtEmail").val(infoUsuario.email);
                         $("#hddNomeUsuario").val(nomeUsuario);
+                        $("#txtUsuario").val(infoUsuario.identificador_aluno);
                     }, 'json'
                 );
             });		
