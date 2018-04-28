@@ -10,8 +10,8 @@
 	if(strlen(trim($arrCredencial['foto'])) > 0)
 	{
 		$fotoPerfil = trim($arrCredencial['foto']);
-	}
-
+    }
+ 
 ?> 
 
     <!-- Header Navbar: style can be found in header.less -->
@@ -94,6 +94,8 @@
                 <li <?php echo $this->uri->segment(1) == 'horario' ? "class='active'" : "" ?>><a href="<?php echo base_url('horario/gerenciar');?>"><i class="fa fa-clock-o"></i> <span>Horários</span></a></li>
             <?php endif; ?>
              
+           <?php $infoPath = $this->uri->segment(1) . '/' . $this->uri->segment(2); ?>
+
             <li class="treeview <?php echo $this->uri->segment(1) == 'relatorio' ? "class=' active menu-open'" : "" ?>">
                 <a>
                     <i class="fa fa-pie-chart"></i> <span>Relatórios</span>
@@ -102,7 +104,11 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="<?php echo base_url('relatorio/gerenciar');?>"><i class="fa fa-circle-o"></i> Histórico estudo</a></li>
+                    <li <?php echo $infoPath == 'relatorio/gerenciar' ? "class='active'" : "" ?>><a href="<?php echo base_url('relatorio/gerenciar');?>"><i class="fa fa-circle-o"></i> Histórico estudo</a></li>
+                    
+                    <?php if(!in_array('aluno', $arrPerfilNome)): ?>
+                        <li <?php echo $infoPath == 'relatorio/aluno' ? "class='active'" : "" ?>><a href="<?php echo base_url('relatorio/aluno');?>"><i class="fa fa-circle-o"></i> Saldo de alunos</a></li>
+                    <?php endif; ?>  
                 </ul>
             </li>
            

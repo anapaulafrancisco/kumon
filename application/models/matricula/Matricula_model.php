@@ -425,5 +425,51 @@ class Matricula_model extends CI_Model {
         {
             return array();
 		}							
-	}							
+	}
+
+	//-----------------------------------------------------------
+	
+	/**
+	 * Funcao responsavel por listar matriculas atuv
+	 *
+	 * @param [type] $status
+	 * @param [type] $anoMesMatricula
+	 * @return void
+	 */
+	public function relatorioSaldoAluno($status, $anoMesMatricula)
+	{
+		$campoData = 'm.data_matricula';
+
+		if(!$status)
+		{
+			$campoData = 'm.data_inativo';
+		}
+
+		$result = $this->db->query("SELECT
+										c.id_curso,
+										c.nome_curso,
+										a.nome_aluno,
+										DATE_FORMAT(m.data_matricula,'%d/%m/%Y') AS data_matricula_formatada,
+										DATE_FORMAT(m.data_inativo,'%d/%m/%Y') AS data_inativo_formatada
+									FROM
+										matricula m
+										JOIN aluno a ON (a.id_aluno = m.id_aluno)	      
+										JOIN estagio e ON (e.id_estagio = m.id_estagio)
+										JOIN curso c ON (c.id_curso = e.id_curso)    
+									WHERE
+										m.ativo = {$status}	
+									AND
+										{$campoData} LIKE '%{$anoMesMatricula}%'
+									ORDER BY
+										{$campoData}");
+
+		if (is_object($result) && $result->num_rows() > 0)
+        {
+            return $result->result_array();
+        }
+        else
+        {
+            return array();
+		}							
+	}
 }

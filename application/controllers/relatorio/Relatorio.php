@@ -101,5 +101,79 @@ class Relatorio extends CI_Controller {
 		
 		$this->load->view('relatorio/lst_relatorio_view', $arrDados);
 	}
+
+	//-----------------------------------------------------------
+
+	/**
+	 * Funcao responsavel por gerar o relatorio de saldo de aluno
+	 *
+	 * @return void
+	 */
+	public function relSaldoAluno()
+	{
+		if($this->session->has_userdata('post_filtro'))
+		{
+			$this->session->unset_userdata('post_filtro');
+		}
+
+		$arrMes = array(
+			'01' => 'JANEIRO', '02' => 'FEVEREIRO', '03' => 'MARÇO', '04' => 'ABRIL',
+			'05' => 'MAIO', '06' => 'JUNHO', '07' => 'JULHO', '08' => 'AGOSTO',
+			'09' => 'SETEMBRO', '10' => 'OUTUBRO', '11' => 'NOVEMBRO', '12' => 'DEZEMBRO'
+		);
+		
+		$arrDados = array(
+			'arrMes' => $arrMes 
+		);
+
+		$arrDados['arrSaldoAlunoAtivoMes'] = array();
+		$arrDados['arrSaldoAlunoInativoMes'] = array();
+		$arrDados['mesAnoSelecionado'] = null;
+		
+		if($this->input->post(NULL, TRUE))
+		{
+			$arrPost = $this->input->post();
+	
+			if(isset($arrPost['btnLimparFiltro']))
+			{
+				$this->session->unset_userdata('post_filtro');
+			}
+			else
+			{
+				$this->session->set_userdata(array('post_filtro' => $arrPost));	
+				
+				$anoMesMatricula = $arrPost['txtAno'] . '-' . $arrPost['sltMes'];
+
+				//ativo
+				$arrSaldoAlunoAtivo = $this->matricula_model->relatorioSaldoAluno(1, $anoMesMatricula);
+
+				$arrSaldoAlunoAtivoMes = array();
+				foreach($arrSaldoAlunoAtivo as $saldo)
+				{
+					$arrSaldoAlunoAtivoMes[$saldo['nome_curso']][] = $saldo;
+				}
+
+				//inativo
+				$arrSaldoAlunoInativo = $this->matricula_model->relatorioSaldoAluno(0, $anoMesMatricula);
+
+				$arrSaldoAlunoInativoMes = array();
+				foreach($arrSaldoAlunoInativo as $saldo)
+				{
+					$arrSaldoAlunoInativoMes[$saldo['nome_curso']][] = $saldo;
+				}
+	
+				$arrDados['arrSaldoAlunoAtivoMes'] = $arrSaldoAlunoAtivoMes;
+				$arrDados['totalEntrada'] = count($arrSaldoAlunoAtivo);
+
+				$arrDados['arrSaldoAlunoInativoMes'] = $arrSaldoAlunoInativoMes;
+				$arrDados['totalSaida'] = count($arrSaldoAlunoInativo);
+				
+				$arrDados['mesAnoSelecionado'] = $arrMes[$arrPost['sltMes']] . ' de ' . $arrPost['txtAno'];
+			}
+		}
+		
+		$this->load->view('relatorio/lst_rel_saldo_aluno_view', $arrDados);
+	}
+
 }
 
