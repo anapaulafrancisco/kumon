@@ -96,7 +96,6 @@ class Matricula_model extends CI_Model {
 										a.nome_aluno,
 										m.id_estagio,
 										e.nome_estagio,
-										m.identificador_aluno,
 										m.data_matricula,
 										DATE_FORMAT(m.data_matricula,'%d/%m/%Y') AS data_matricula_formatada,
 										DATE_FORMAT(m.data_inativo,'%d/%m/%Y') AS data_inativa_formatada,
@@ -265,6 +264,11 @@ class Matricula_model extends CI_Model {
 										DATE_FORMAT(data_matricula, '%Y-%m') 
 									ORDER BY
 										data_matricula");
+
+										echo '<pre>';
+										print_r($this->db->last_query());
+										echo '</pre>';
+
 
         if (is_object($result) && $result->num_rows() > 0)
         {
@@ -462,6 +466,11 @@ class Matricula_model extends CI_Model {
 										{$campoData} LIKE '%{$anoMesMatricula}%'
 									ORDER BY
 										{$campoData}");
+
+
+echo '<pre>';
+print_r($this->db->last_query());
+echo '</pre>';
 
 		if (is_object($result) && $result->num_rows() > 0)
         {
