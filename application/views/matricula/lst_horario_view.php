@@ -68,9 +68,9 @@
                                             foreach ($arrCurso as $curso) 
                                             {
                                                 $repopular = '';
-                                                if($this->session->has_userdata('post_filtro'))
+                                                if($this->session->has_userdata('post_filtro_horario'))
                                                 {						
-                                                    $arrPost = $this->session->userdata('post_filtro');
+                                                    $arrPost = $this->session->userdata('post_filtro_horario');
                                                     $repopular = $arrPost['sltCurso'] == $curso['id_curso'] ? "selected='selected'" : ''; 
                                                 }
 
@@ -88,9 +88,9 @@
                                             foreach ($arrAluno as $aluno) 
                                             {
                                                 $repopular = '';
-                                                if($this->session->has_userdata('post_filtro'))
+                                                if($this->session->has_userdata('post_filtro_horario'))
                                                 {						
-                                                    $arrPost = $this->session->userdata('post_filtro');
+                                                    $arrPost = $this->session->userdata('post_filtro_horario');
                                                     $repopular = $arrPost['sltAluno'] == $aluno['id_aluno'] ? "selected='selected'" : ''; 
                                                 }
 
@@ -110,9 +110,9 @@
                                             foreach($arrDiasSelecionados as $dia)
                                             {
                                                 $repopular = '';
-                                                if($this->session->has_userdata('post_filtro'))
+                                                if($this->session->has_userdata('post_filtro_horario'))
                                                 {						
-                                                    $arrPost = $this->session->userdata('post_filtro');
+                                                    $arrPost = $this->session->userdata('post_filtro_horario');
                                                     $repopular = $arrPost['sltDiaSemana'] == $dia ? "selected='selected'" : ''; 
                                                 }
 
@@ -125,9 +125,9 @@
                             <div class='col-md-2 col-xs-12'>
                                 <?php 
                                     $repopular = '';
-                                    if($this->session->has_userdata('post_filtro'))
+                                    if($this->session->has_userdata('post_filtro_horario'))
                                     {						
-                                        $arrPost = $this->session->userdata('post_filtro');
+                                        $arrPost = $this->session->userdata('post_filtro_horario');
                                         $repopular = $arrPost['txtHora']; 
                                     }
                                 ?>

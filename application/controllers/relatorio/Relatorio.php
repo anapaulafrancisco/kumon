@@ -111,9 +111,9 @@ class Relatorio extends CI_Controller {
 	 */
 	public function relSaldoAluno()
 	{
-		if($this->session->has_userdata('post_filtro'))
+		if($this->session->has_userdata('post_filtro_saldo'))
 		{
-			$this->session->unset_userdata('post_filtro');
+			$this->session->unset_userdata('post_filtro_saldo');
 		}
 
 		$arrMes = array(
@@ -122,12 +122,9 @@ class Relatorio extends CI_Controller {
 			'09' => 'SETEMBRO', '10' => 'OUTUBRO', '11' => 'NOVEMBRO', '12' => 'DEZEMBRO'
 		);
 		
-		$arrDados = array(
-			'arrMes' => $arrMes 
-		);
-
-		$arrDados['arrSaldoAlunoAtivoMes'] = array();
-		$arrDados['arrSaldoAlunoInativoMes'] = array();
+		$arrDados['arrMes'] = $arrMes;
+		$arrDados['arrSaldoAlunoAtivoMes'] = null;
+		$arrDados['arrSaldoAlunoInativoMes'] = null;
 		$arrDados['mesAnoSelecionado'] = null;
 		
 		if($this->input->post(NULL, TRUE))
@@ -136,16 +133,16 @@ class Relatorio extends CI_Controller {
 	
 			if(isset($arrPost['btnLimparFiltro']))
 			{
-				$this->session->unset_userdata('post_filtro');
+				$this->session->unset_userdata('post_filtro_saldo');
 			}
 			else
 			{
-				$this->session->set_userdata(array('post_filtro' => $arrPost));	
+				$this->session->set_userdata(array('post_filtro_saldo' => $arrPost));	
 				
-				$anoMesMatricula = $arrPost['txtAno'] . '-' . $arrPost['sltMes'];
+				$anoMesSelecionado = $arrPost['txtAno'] . '-' . $arrPost['sltMes'];
 
 				//ativo
-				$arrSaldoAlunoAtivo = $this->matricula_model->relatorioSaldoAluno(1, $anoMesMatricula);
+				$arrSaldoAlunoAtivo = $this->matricula_model->relatorioSaldoAluno(1, $anoMesSelecionado);
 
 				$arrSaldoAlunoAtivoMes = array();
 				foreach($arrSaldoAlunoAtivo as $saldo)
@@ -154,13 +151,18 @@ class Relatorio extends CI_Controller {
 				}
 
 				//inativo
-				$arrSaldoAlunoInativo = $this->matricula_model->relatorioSaldoAluno(0, $anoMesMatricula);
+				$arrSaldoAlunoInativo = $this->matricula_model->relatorioSaldoAluno(0, $anoMesSelecionado);
 
 				$arrSaldoAlunoInativoMes = array();
 				foreach($arrSaldoAlunoInativo as $saldo)
 				{
 					$arrSaldoAlunoInativoMes[$saldo['nome_curso']][] = $saldo;
 				}
+
+				//ativo total geral ate dia/mes/ano selecionado
+				$data = new DateTime($anoMesSelecionado .'-01'); 
+ 				$buscaAtivoData = $data->format('Y-m-t'); //pega o ultimo dia do mes/ano selecionado
+				$arrTotalGeralAtivo = $this->matricula_model->totalGeralAtivo($buscaAtivoData);
 	
 				$arrDados['arrSaldoAlunoAtivoMes'] = $arrSaldoAlunoAtivoMes;
 				$arrDados['totalEntrada'] = count($arrSaldoAlunoAtivo);
@@ -169,6 +171,8 @@ class Relatorio extends CI_Controller {
 				$arrDados['totalSaida'] = count($arrSaldoAlunoInativo);
 				
 				$arrDados['mesAnoSelecionado'] = $arrMes[$arrPost['sltMes']] . ' de ' . $arrPost['txtAno'];
+
+				$arrDados['totalGeralAtivo'] = $arrTotalGeralAtivo['total_matricula_ativa'];
 			}
 		}
 		

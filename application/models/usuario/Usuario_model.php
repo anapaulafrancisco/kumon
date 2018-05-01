@@ -140,4 +140,35 @@ class Usuario_model extends CI_Model {
 		$this->db->update('usuario', $arrInfoUsuario);
 	}
 
+	//-----------------------------------------------------------
+
+	/**
+	 * Funcao responsavel por alterar a foto do usuario
+	 * 
+	 * @param type $nomeFoto 
+	 * @param type $idUsuario 
+	 * 
+	 */
+	public function alterarFoto($nomeFoto, $idUsuario)
+	{
+		$this->db->where('id_usuario', $idUsuario);
+		$this->db->update('usuario', array('foto' => $nomeFoto));
+	}
+
+	//-----------------------------------------------------------
+
+	/**
+	 * Funcao responsavel por alterar a senha do usuario
+	 * 
+	 * @param type $senha 
+	 * @param type $idUsuario 
+	 * 
+	 */
+	public function alterarSenha($senha, $idUsuario)
+	{
+		$this->db->where('id_usuario', $idUsuario);
+		$this->db->update('usuario', array('senha' => $senha));
+
+	}	
+
 }

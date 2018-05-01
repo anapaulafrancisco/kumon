@@ -323,7 +323,7 @@ class Matricula extends CI_Controller {
 		{
 			$arrPost = $this->input->post();
 	
-			$this->session->set_userdata(array('post_filtro' => $arrPost));	
+			$this->session->set_userdata(array('post_filtro_horario' => $arrPost));	
 
 			if(!empty($arrPost['sltCurso']))
 			{
@@ -348,15 +348,15 @@ class Matricula extends CI_Controller {
 
 			if(isset($arrPost['btnLimparFiltro']))
 			{
-				$this->session->unset_userdata('post_filtro');
+				$this->session->unset_userdata('post_filtro_horario');
     		 	$where = array();
 		 	}
 		}	
 		else
 		{
-			if($this->session->has_userdata('post_filtro'))
+			if($this->session->has_userdata('post_filtro_horario'))
 			{
-				$arrPost = $this->session->userdata('post_filtro');
+				$arrPost = $this->session->userdata('post_filtro_horario');
 
 				if(!empty($arrPost['sltCurso']))
 				{

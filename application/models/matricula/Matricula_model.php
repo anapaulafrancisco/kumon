@@ -244,7 +244,12 @@ class Matricula_model extends CI_Model {
 	{
 		$this->db->query("SET lc_time_names = 'pt_BR'");
 		$result = $this->db->query("SELECT
-										DATE_FORMAT(data_matricula, '%b') AS mes,	
+										-- DATE_FORMAT(data_matricula, '%b') AS mes,
+										CASE
+										WHEN ativo = 1 THEN DATE_FORMAT(data_matricula, '%b')
+										ELSE DATE_FORMAT(data_inativo, '%b')
+										END AS mes,
+	
 										SUM(
 											CASE 
 												WHEN ativo = 1 THEN 1
@@ -261,9 +266,15 @@ class Matricula_model extends CI_Model {
 									WHERE
 										data_matricula >= '{$periodo}' 		
 									GROUP BY	
-										DATE_FORMAT(data_matricula, '%Y-%m') 
+										CASE	
+											WHEN data_inativo IS NOT NULL THEN DATE_FORMAT(data_inativo, '%Y-%m') 
+											ELSE DATE_FORMAT(data_matricula, '%Y-%m') 
+										END	
 									ORDER BY
-										data_matricula");
+										 CASE
+											WHEN ativo = 1 THEN data_matricula
+											ELSE data_inativo
+											END");
 
         if (is_object($result) && $result->num_rows() > 0)
         {
@@ -470,5 +481,30 @@ class Matricula_model extends CI_Model {
         {
             return array();
 		}							
+	}
+
+	//-----------------------------------------------------------
+
+	/**
+	 * Funcao responsavel retornar o total de matricula ativas ate a data atual selecionada
+	 *
+	 * @param [type] $buscaAtivoData
+	 * @return void
+	 */
+	public function totalGeralAtivo($buscaAtivoData)
+	{
+		$this->db->where('data_matricula <=', $buscaAtivoData); 
+		$this->db->where('ativo', 1);
+		$this->db->select("COUNT(id_matricula) AS total_matricula_ativa");
+		$result = $this->db->get('matricula');
+
+		if (is_object($result) && $result->num_rows() > 0) 
+		{
+			return $result->row_array();
+		} 
+		else 
+		{
+			return array();
+		}
 	}
 }

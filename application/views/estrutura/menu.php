@@ -31,13 +31,14 @@
             <!-- User Account: style can be found in dropdown.less -->
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <img src="<?php echo base_url('assets/imgs/foto_padrao.png'); ?>" class="user-image" alt="Imagem Usuário">
+                        <img src="<?php echo base_url('assets/uploads/perfil/') . $fotoPerfil; ?>" class="user-image" alt="Foto Usuário">
+                        
                         <span class="hidden-xs"><?php echo $arrCredencial['nome_usuario']; ?></span>
                     </a>
                     <ul class="dropdown-menu">
                         <!-- User image -->
                         <li class="user-header">
-                            <img src="<?php echo base_url('assets/imgs/foto_padrao.png'); ?>" class="img-circle" alt="Imagem Usuário">
+                            <img src="<?php echo base_url('assets/uploads/perfil/') . $fotoPerfil; ?>" class="img-circle" alt="Foto Usuário">
                             <p>
                                 <?php echo $arrCredencial['nome_usuario'] . ' - '. ucfirst($arrCredencial['perfis_nomes']); ?>
                                 <small><?php echo $arrCredencial['email']; ?></small>
@@ -46,9 +47,9 @@
                         
                         <!-- Menu Footer-->
                         <li class="user-footer">
-                            <!-- <div class="pull-left">
-                                <a href="#" class="btn btn-default btn-flat">Configuração</a>
-                            </div> -->
+                            <div class="pull-left">
+                                <a href="<?php echo base_url('usuario/configuracao'); ?>" class="btn btn-default btn-flat">Configuração</a>
+                            </div>
                             <div class="pull-right">
                                 <a href="<?php echo base_url('login/logout'); ?>" class="btn btn-default btn-flat">Sair</a>
                             </div>

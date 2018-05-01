@@ -58,9 +58,9 @@
                                             foreach ($arrMes as $indice => $mes) 
                                             {
                                                 $repopular = '';
-                                                if($this->session->has_userdata('post_filtro'))
+                                                if($this->session->has_userdata('post_filtro_saldo'))
                                                 {						
-                                                    $arrPost = $this->session->userdata('post_filtro');
+                                                    $arrPost = $this->session->userdata('post_filtro_saldo');
                                                     $repopular = $arrPost['sltMes'] == $indice ? "selected='selected'" : ''; 
                                                 }
 
@@ -73,9 +73,9 @@
                                 <div class='col-md-2 col-xs-12'>
                                     <?php 
                                         $repopular = date('Y');
-                                        if($this->session->has_userdata('post_filtro'))
+                                        if($this->session->has_userdata('post_filtro_saldo'))
                                         {						
-                                            $arrPost = $this->session->userdata('post_filtro');
+                                            $arrPost = $this->session->userdata('post_filtro_saldo');
                                             $repopular = $arrPost['txtAno']; 
                                         }
                                     ?>
@@ -113,35 +113,30 @@
                             if($arrSaldoAlunoAtivoMes):
                                 $labelAlunoSaida = $totalEntrada > 1 ? 'alunos' : 'aluno';
                         ?>                    
-                            <h4>Entrada do mês: <?php echo $totalEntrada . ' ' . $labelAlunoSaida; ?></h4><br /> 
-                        <?php 
-                            foreach($arrSaldoAlunoAtivoMes as $curso => $arrInfoAluno):
-                        ?>
-                            <h4>Curso: <?php echo $curso; ?></h4>
-                            <table class="table">
-                                <tr>
-                                    <th width='50%'>Nome</th>
-                                    <th>Data matrícula</th>
-                                </tr>
-                                <?php 
-                                    $i = 0;
-                                    foreach ($arrInfoAluno as $info) 
-                                    {
-                                        $i++;
-                                        echo "<tr>
-                                                <td>{$info['nome_aluno']}</td>
-                                                <td>{$info['data_matricula_formatada']}</td>
-                                            </tr>";
+                                <h4>Entrada do mês: <?php echo $totalEntrada . ' ' . $labelAlunoSaida; ?></h4><br /> 
+                                <?php foreach($arrSaldoAlunoAtivoMes as $curso => $arrInfoAluno): ?>
+                                    <h4>Curso: <?php echo $curso; ?></h4>
+                                    <table class="table">
+                                        <tr>
+                                            <th width='50%'>Nome</th>
+                                            <th>Data matrícula</th>
+                                        </tr>
+                                        <?php 
+                                            $i = 0;
+                                            foreach ($arrInfoAluno as $info) 
+                                            {
+                                                $i++;
+                                                echo "<tr>
+                                                        <td>{$info['nome_aluno']}</td>
+                                                        <td>{$info['data_matricula_formatada']}</td>
+                                                    </tr>";
+                                                
+                                            }
+                                            echo "<tr><td colspan='2'><h4>Total: {$i}</h4></tr>";  
                                         
-                                    }
-                                    echo "<tr><td colspan='2'><h4>Total: {$i}</h4></tr>";  
-                                   
-                                ?>
-                            </table>
-                        <?php endforeach; ?>
-
-                        <!-- <h2>Total de alunos da unidade: <?php //echo $totalEntrada; ?></h2>       -->
-
+                                        ?>
+                                    </table>
+                                <?php endforeach; ?>
                         <?php endif; ?>    
 
                         <?php 
@@ -149,8 +144,6 @@
                             
                                 $labelAlunoSaida = $totalSaida > 1 ? 'alunos' : 'aluno';
                         ?>                    
-                            <!-- <h2>Saída do mês de <?php //echo $mesAnoSelecionado . ': ' . $totalEntrada; ?></h2>  -->
-                            
                             <br /> <h4>Saída do mês: <?php echo $totalSaida . ' ' . $labelAlunoSaida; ?></h4><br /> 
                         <?php 
                             foreach($arrSaldoAlunoInativoMes as $curso => $arrInfoAluno):
@@ -177,21 +170,23 @@
                                 ?>
                             </table>
                         <?php endforeach; ?>
-
-                        <!-- <h2>Total de alunos da unidade: <?php //echo $totalEntrada; ?></h2>       -->
-
-                        <?php endif; ?> 
+                    <?php endif; ?> 
+                         <h3>Total de alunos na unidade: <?php echo $totalGeralAtivo; ?></h3>
                     </div>
                     <!-- /.box-body -->
                     
                 </div>
                 <!-- /.box -->                      
-                <?php else: ?> 
+                <?php endif; ?> 
+
+                <?php if (!is_null($mesAnoSelecionado) && !$arrSaldoAlunoAtivoMes && !$arrSaldoAlunoInativoMes): ?>
                     <div class="alert alert-warning alert-dismissible">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                         <h4><i class="icon fa fa-warning"></i> Atenção!</h4>
-                        Saldo de alunos não foi encontrado.
+                        Saldo de alunos não foi encontrado para o mês selecionado.
                     </div>
+                    
+                    <h3>Total de alunos na unidade: <?php echo $totalGeralAtivo; ?></h3>
                 <?php endif; ?>
         
             </section>

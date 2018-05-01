@@ -221,11 +221,15 @@ class Usuario extends CI_Controller {
 	 * 
 	 * @return [type] [description]
 	 */
-	public function config()
+	public function config($arrMensagem = array())
 	{
 		$arrUsuario = $this->usuario_model->buscarUsuario($this->credencial['id_usuario']);
 
-		$arrDados = array('arrUsuario' => $arrUsuario);
+		$arrDados = array(
+			'arrUsuario' => $arrUsuario,
+			'arrMensagem' => $arrMensagem
+		);
+
 		$this->load->view('usuario/config_view', $arrDados);
 	}
 	
@@ -252,6 +256,92 @@ class Usuario extends CI_Controller {
 		else
 		{
 		    return TRUE;
+		}
+	}
+
+	//-----------------------------------------------------------
+
+	/**
+	 * Funcao responsavel por salvar as alteracoes feitas
+	 * 
+	 * @return [type] [description]
+	 */
+	public function alterarConfig()
+	{
+		if($this->input->post(NULL, TRUE))
+		{
+			$arrPost = $this->input->post();
+			
+			$senha = trim($arrPost['pwdSenha']);
+			$nomeImg = preg_replace("/&([a-z])[a-z]+;/i", "$1", htmlentities($_FILES['flFoto']['name']));
+
+			if(empty($senha) && empty($nomeImg))
+			{
+				Notificacao::setNotificacao('Não houve alteração!', Notificacao::$NOTIFICACAO_INFO);
+             	redirect('usuario/configuracao'); 
+			}
+
+			if(!empty($nomeImg))
+			{	
+				$arrInfoImg = explode('.', $nomeImg);
+				$nomeImg = $arrInfoImg[0] . '_' . date('dmYHi') . '.' . $arrInfoImg[1];
+
+				$config['upload_path']          = './assets/uploads/perfil/';
+	            $config['allowed_types']        = 'gif|jpg|jpeg|png';
+	            $config['max_size']             = 2048;
+	            $config['file_name']			= $nomeImg;
+
+	            $this->load->library('upload', $config);
+
+				if(!$this->upload->do_upload('flFoto'))
+	            {
+	                 $msgErro = $this->upload->display_errors();  
+	                 Notificacao::setNotificacao($msgErro, Notificacao::$NOTIFICACAO_ERRO);
+	            }
+	            else
+	            {
+	                $nomeImg = $this->upload->data('file_name');
+	               	$this->usuario_model->alterarFoto($nomeImg, $this->credencial['id_usuario']);
+
+					Notificacao::setNotificacao('Configuração alterada com sucesso!', Notificacao::$NOTIFICACAO_SUCESSO);
+	            }	
+			}
+			
+			$validarSenha = '';
+
+			$this->form_validation->set_error_delimiters("<p style='color: #E74C3C; font-weight: bold;'>", "</p>");
+
+			if(!empty($senha))
+			{
+				$validarSenha = 'callback_verifica_senha';
+				$this->form_validation->set_rules('pwdSenha', 'Senha', $validarSenha);
+			}	
+			
+			if ($this->form_validation->run() == FALSE)
+			{
+				//$this->load->view('usuario/config_view');
+			}
+			else
+			{
+				$senhaCrip = md5(trim(SALT_SENHA . $senha));
+
+				$this->db->trans_begin();
+
+				$this->usuario_model->alterarSenha($senhaCrip, $this->credencial['id_usuario']);
+
+				if ($this->db->trans_status() === FALSE)
+				{
+					$this->db->trans_rollback();
+					Notificacao::setNotificacao('Ocorreu um erro ao tentar alterar a senha. Tente novamente.', Notificacao::$NOTIFICACAO_ERRO);
+				}
+				else
+				{
+					$this->db->trans_commit();
+					Notificacao::setNotificacao('Configuração alterada com sucesso!', Notificacao::$NOTIFICACAO_SUCESSO);
+				}
+			}
+			
+			$this->config();
 		}
 	}
 }
