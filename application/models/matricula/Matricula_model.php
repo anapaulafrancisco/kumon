@@ -265,11 +265,6 @@ class Matricula_model extends CI_Model {
 									ORDER BY
 										data_matricula");
 
-										echo '<pre>';
-										print_r($this->db->last_query());
-										echo '</pre>';
-
-
         if (is_object($result) && $result->num_rows() > 0)
         {
             return $result->result_array();
@@ -466,11 +461,6 @@ class Matricula_model extends CI_Model {
 										{$campoData} LIKE '%{$anoMesMatricula}%'
 									ORDER BY
 										{$campoData}");
-
-
-echo '<pre>';
-print_r($this->db->last_query());
-echo '</pre>';
 
 		if (is_object($result) && $result->num_rows() > 0)
         {
