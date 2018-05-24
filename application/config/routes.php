@@ -104,14 +104,19 @@ $route['curso/incluir'] = 'curso/curso/formIncluirCurso';
 $route['curso/editar/(:any)'] = 'curso/curso/formEditarCurso/$1';
 $route['curso/incluir/salvar'] = 'curso/curso/incluirCurso';
 $route['curso/editar/(:any)/salvar'] = 'curso/curso/editarCurso';
+$route['curso/ver/estagio/(:any)'] = 'curso/curso/verEstagio/$1';
+$route['curso/estagio/editar'] = 'curso/curso/editarEstagio';
+$route['curso/estagio/incluir/(:any)'] = 'curso/curso/formIncluirEstagio/$1';
+$route['curso/estagio/salvar'] = 'curso/curso/incluirEstagio';
+
 
 //ESTAGIO
-$route['estagio/gerenciar'] = 'estagio/estagio/index';
+/* $route['estagio/gerenciar'] = 'estagio/estagio/index';
 $route['estagio/ver/(:any)'] = 'estagio/estagio/ver/$1';
 $route['estagio/incluir'] = 'estagio/estagio/formIncluirEstagio';
 $route['estagio/editar/(:any)'] = 'estagio/estagio/formEditarEstagio/$1';
 $route['estagio/incluir/salvar'] = 'estagio/estagio/incluirEstagio';
-$route['estagio/editar/(:any)/salvar'] = 'estagio/estagio/editarEstagio';
+$route['estagio/editar/(:any)/salvar'] = 'estagio/estagio/editarEstagio'; */
 
 //ESTAGIO - PROGRESSO ESTUDO
 $route['progresso/gerenciar'] = 'progresso/progresso/index';

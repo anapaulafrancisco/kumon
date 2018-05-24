@@ -33,4 +33,20 @@ class EstagioAjax extends CI_Controller {
 		
 		echo $optionEstagio;
 	}
+
+	//-----------------------------------------------------------
+
+	/**
+	 * Funcao responsavel por buscar informacoes do estagio
+	 *
+	 * @return void
+	 */
+	function buscaInfoEstagio()
+	{
+		$idEstagio = $this->input->post('idEstagio');
+
+		$arrInfoEstagio = $this->estagio_model->buscaInfoEstagioCurso($idEstagio);
+
+		echo json_encode($arrInfoEstagio);
+	}
 }

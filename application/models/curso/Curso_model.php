@@ -25,6 +25,7 @@ class Curso_model extends CI_Model {
 			$this->db->where('ativo', $ativo);
 		}
 
+		$this->db->select("*, DATE_FORMAT(data_curso,'%d/%m/%Y') AS data_curso_formatada");
 		$result = $this->db->get('curso');
 
 		if (is_object($result) && $result->num_rows() > 0)
@@ -35,5 +36,56 @@ class Curso_model extends CI_Model {
         {
             return array();
         }
+	}
+
+	//-----------------------------------------------------------
+
+	/**
+	 * Funcao responsavel por incluir um curso
+	 * 
+	 * @param int $arrInfoCurso
+	 */
+	public function incluirCurso($arrInfoCurso)
+	{
+		$this->db->insert('curso', $arrInfoCurso);
+	}
+
+	//-----------------------------------------------------------
+
+	/**
+	 * Funcao responsavel por buscar um curso
+	 * 
+	 * @param type|int $ativo 
+	 * @return array
+	 */
+	public function buscarCurso($idCurso)
+	{
+		$this->db->where('id_curso', $idCurso);
+		$this->db->select("*, DATE_FORMAT(data_curso,'%d/%m/%Y') AS data_curso_formatada");
+		$result = $this->db->get('curso');
+
+		if (is_object($result) && $result->num_rows() > 0) 
+		{
+			return $result->row_array();
+		} 
+		else 
+		{
+			return array();
+		}
+	}
+
+	//-----------------------------------------------------------
+
+	/**
+	 * Funcao responsavel por editar um curso
+	 * 
+	 * @param type $arrInfoCurso 
+	 * @param type $idCurso 
+	 * @return type
+	 */
+	public function editarCurso($arrInfoCurso, $idCurso)
+	{
+		$this->db->where('id_curso', $idCurso);
+		$this->db->update('curso', $arrInfoCurso);
 	}
 }

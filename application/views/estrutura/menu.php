@@ -72,6 +72,10 @@
             <li <?php echo $this->uri->segment(1) == 'home' ? "class='active'" : "" ?>><a href="<?php echo base_url('home'); ?>"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
             
             <?php if(!in_array('aluno', $arrPerfilNome)): ?>
+                <li <?php echo $this->uri->segment(1) == 'curso' ? "class='active'" : "" ?>><a href="<?php echo base_url('curso/gerenciar'); ?>"><i class="fa fa-folder-open"></i> <span>Curso</span></a></li>
+            <?php endif; ?>
+            
+            <?php if(!in_array('aluno', $arrPerfilNome)): ?>
                 <li <?php echo $this->uri->segment(1) == 'unidade' ? "class='active'" : "" ?>><a href="<?php echo base_url('unidade/editar'); ?>"><i class="fa fa-home"></i> <span>Unidade</span></a></li>
             <?php endif; ?>
             
